@@ -9,7 +9,7 @@ var express = require('express'),
 var	guilds = require('./src/api/guilds');
 
 var corsOpts = {
-	origin: "localhost:8080"
+	origin: "http://localhost:8080"
 };
 
 app.use(bodyParser.urlencoded({
