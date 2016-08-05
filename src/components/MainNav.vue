@@ -7,7 +7,7 @@
 	    <div id="navbar" class="collapse navbar-collapse">
 	     	<ul class="nav navbar-nav">
 	        <li v-for="tab in tabs" :class="{ 'active': tab.active }">
-						<a href="javascript:;" @click="setTab(tab.text)">{{tab.text}}</a>
+						<a href="javascript:;" @click="onSetTab(tab.text)">{{tab.text}}</a>
           </li>
         </ul>
       </div>
