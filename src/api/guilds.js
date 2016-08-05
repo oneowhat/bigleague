@@ -7,7 +7,7 @@ exports.guilds = function(req, res, next) {
     if(err) return next(err);
 		res.json(guilds);
 	})
-}
+};
 
 exports.insert = function(res, guild, next){
   db.guilds.insert(guild, function(err, item){
@@ -15,4 +15,4 @@ exports.insert = function(res, guild, next){
     if(err) return next(err);
     res.json("OK");
   });
-}
+};

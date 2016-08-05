@@ -14,6 +14,7 @@ var cors = function(req, res, next) {
 }
 	
 var	guilds = require('./src/api/guilds');
+var	users = require('./src/api/users');
 
 app.use(bodyParser.urlencoded({
 	"extended": false	
@@ -26,8 +27,12 @@ app.get('/', function(req, res, next){
 	guilds.guilds(req, res, next);
 });
 
-app.post('/insert', function(req, res, next){
-  guilds.insert(res, { "name": "Masons" }, next);
+app.post('/register', function(req, res, next) {
+  users.register(req.body, res, next);
+});
+
+app.post('/login', function(req, res, next) {
+  users.login(req.body, res, next);
 });
 
 app.post
