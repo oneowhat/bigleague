@@ -24,9 +24,11 @@
 
 <script>
 import Hello from './components/Hello';
+import MainNav from './components/MainNav';
 
 export default {
   components: {
+    MainNav,
     Hello,
   },
 };

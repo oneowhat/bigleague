@@ -3,7 +3,7 @@
     <h1>{{ msg }}</h1>
     <button @click="onSearch()">Search</button>
     <button @click="onInsert()">Insert</button>
-	{{guilds | json}}
+	  {{guilds | json}}
   </div>
 </template>
 
