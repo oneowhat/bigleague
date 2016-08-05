@@ -1,8 +1,9 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <button @click="onSearch()">Poop</button>
-	{{campaigns | json}}
+    <button @click="onSearch()">Search</button>
+    <button @click="onInsert()">Insert</button>
+	{{guilds | json}}
   </div>
 </template>
 
@@ -15,14 +16,20 @@ export default {
       // preserves its current state and we are modifying
       // its initial state.
       msg: 'Hello World vue!',
-      campaigns: [],
+      guilds: [],
     };
   },
   methods: {
     onSearch() {
       this.$http({ url: 'http://localhost:3000', method: 'GET' })
-        .then(function (response) {
-          this.campaigns = response;
+        .then((response) => {
+          this.guilds = response.json();
+        });
+    },
+    onInsert() {
+      this.$http({ url: 'http://localhost:3000/insert', method: 'POST' })
+        .then((response) => {
+          console.log(response);
         });
     },
   },
