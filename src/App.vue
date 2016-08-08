@@ -7,12 +7,16 @@
 
 <script>
 import MainNav from './components/MainNav';
+import auth from './auth.js';
 
 export default {
   replace: false,
   components: {
     MainNav
   },
+  ready() {
+    auth.checkAuth();
+  }
 };
 </script>
 
