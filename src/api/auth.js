@@ -5,7 +5,7 @@ var config = require('../../config/config'),
     BearerStrategy = require('passport-http-bearer').Strategy,,
     clients = require('./clients')
     users = require('./users')
-    accessTokens = require('./accessTokens');
+    accessTokens = require('./tokens');
     
 // client authentication
 passport.use(new BasicStrategy(

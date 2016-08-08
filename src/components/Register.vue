@@ -7,7 +7,7 @@
       <label for="inputPassword" class="sr-only">Password</label>
       <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required />
       <label for="inputConfirm" class="sr-only">Confirm password</label>
-      <input v-model="confirm" type="password" id="inputPassword" class="form-control" placeholder="Password" required />
+      <input v-model="confirm" type="password" id="inputPassword" class="form-control" placeholder="Confirm password" required />
       <button class="btn btn-lg btn-primary btn-block" :disabled="!isValid" type="submit">Register</button>
     </form>
   </div>

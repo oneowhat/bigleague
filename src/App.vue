@@ -2,24 +2,17 @@
   <div id="app">
     <main-nav></main-nav>
     <img class="logo" src="./assets/logo.png">
-    <hello></hello>
-    <login></login>
-    <register></register>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Login from './components/Login';
-import Register from './components/Register';
-import Hello from './components/Hello';
 import MainNav from './components/MainNav';
 
 export default {
+  replace: false,
   components: {
-    Login,
-    Register,
-    MainNav,
-    Hello,
+    MainNav
   },
 };
 </script>

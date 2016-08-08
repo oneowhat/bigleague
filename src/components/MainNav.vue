@@ -7,7 +7,7 @@
 	    <div id="navbar" class="collapse navbar-collapse">
 	     	<ul class="nav navbar-nav">
 	        <li v-for="tab in tabs" :class="{ 'active': tab.active }">
-						<a href="javascript:;" @click="onSetTab(tab)">{{tab.text}}</a>
+						<a v-link="{ path: tab.path }">{{tab.text}}</a>
           </li>
         </ul>
       </div>
@@ -21,8 +21,9 @@ export default {
   data() {
     return {
       tabs: [
-        { text: 'Home', active: true },
-        { text: 'About', active: false },
+        { text: 'Home', active: true, path: '/' },
+        { text: 'Login', active: false, path: '/login' },
+        { text: 'Register', active: false, path: '/register' },
       ],
     };
   },
