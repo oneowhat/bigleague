@@ -1,9 +1,7 @@
 <template>
+  <img class="logo" src="../assets/logo.png">
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <button @click="onSearch()">Search</button>
-    <button @click="onInsert()">Insert</button>
-	  {{guilds | json}}
   </div>
 </template>
 
@@ -11,27 +9,12 @@
 export default {
   data() {
     return {
-      // note: changing this line won't causes changes
-      // with hot-reload because the reloaded component
-      // preserves its current state and we are modifying
-      // its initial state.
-      msg: 'Hello World vue!',
+      msg: 'Welcome to BIG LEAGUE for Guild Ball',
       guilds: [],
     };
   },
   methods: {
-    onSearch() {
-      this.$http({ url: 'http://localhost:3000', method: 'GET' })
-        .then((response) => {
-          this.guilds = response.json();
-        });
-    },
-    onInsert() {
-      this.$http({ url: 'http://localhost:3000/insert', method: 'POST' })
-        .then((response) => {
-          console.log(response);
-        });
-    },
+  
   },
 };
 </script>

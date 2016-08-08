@@ -1,7 +1,10 @@
 <template>
   <div>
-    <form @submit.prevent="onSubmit()">
+    <form @submit.prevent="onSubmit()" v-show="!registered">
       <h2>Register</h2>
+      <div class="alert alert-danger hidden" :class="{ 'hidden': !message }">
+        {{message}}
+      </div> 
       <label for="inputEmail" class="sr-only">Email address</label>
       <input v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus />
       <label for="inputPassword" class="sr-only">Password</label>
@@ -10,6 +13,12 @@
       <input v-model="confirm" type="password" id="inputPassword" class="form-control" placeholder="Confirm password" required />
       <button class="btn btn-lg btn-primary btn-block" :disabled="!isValid" type="submit">Register</button>
     </form>
+    <div v-show="registered" class="registered">
+      <div class="alert alert-success">
+        Successfully registered! Sign in to begin using Big League...
+      </div>
+      <button v-link="{ path: '/login' }" type="button" class="btn btn-lg btn-primary">Sign in</button>
+    </div>
   </div>
 </template>
 
@@ -19,7 +28,9 @@ export default {
     return {
       email: '',
       password: '',
-      confirm: ''
+      confirm: '',
+      registered: false,
+      message: ''
     };
   },
   computed: {
@@ -35,7 +46,12 @@ export default {
       };
       this.$http.post('http://localhost:3000/register', request)
         .then((response) => {
-          console.log(response);
+          var data = response.json();
+          if (data.success) {
+            this.registered = true;
+          } else {
+            this.message = data.message;
+          }
         });
     }
   }
@@ -44,7 +60,7 @@ export default {
 
 <style scoped>
 
-form {
+form, div.registered {
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;

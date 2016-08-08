@@ -2,6 +2,9 @@
   <div>
     <form @submit.prevent="onSubmit()">
       <h2>Sign in</h2>
+      <div class="alert alert-danger hidden" :class="{ 'hidden': !message }">
+        {{message}}
+      </div> 
       <label for="inputEmail" class="sr-only">Email address</label>
       <input v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus />
       <label for="inputPassword" class="sr-only">Password</label>
@@ -12,22 +15,33 @@
 </template>
 
 <script>
+import auth from '../auth.js';
+import {store} from '../store.js';
+
 export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      message: ''
     };
   },
   methods: {
     onSubmit() {
+      var router = this.$route.router;
       var request = {
         email: this.email,
         password: this.password
       };
       this.$http.post('http://localhost:3000/login', request)
         .then((response) => {
-          console.log(response);
+          var data = response.json();
+          if(response.status === 401) {
+            this.message = data.message;
+          } else {
+            auth.setAuthToken(data);
+            router.go('/');
+          }
         });
     }
   }
