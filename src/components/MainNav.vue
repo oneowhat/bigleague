@@ -18,7 +18,7 @@
             <a v-link="{ path: '/register' }">Register</a>
           </li>
           <li v-if="authenticated">
-            <a @click="logout">Sign out</a>
+            <a @click="logout" href="javascript:;">Sign out</a>
           </li>
         </ul>
       </div>
@@ -69,5 +69,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

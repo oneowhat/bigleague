@@ -9,10 +9,9 @@ exports.guilds = function(req, res, next) {
 	})
 };
 
-exports.insert = function(res, guild, next){
-  db.guilds.insert(guild, function(err, item){
-    console.log(item);
+exports.insert = function(guild, res, next) {
+  db.guilds.insert(guild, function(err, item) {
     if(err) return next(err);
-    res.json("OK");
+    res.status(201).json({ success: true });
   });
 };

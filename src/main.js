@@ -18,6 +18,9 @@ router.map({
   '/': {
     component: require('./components/Hello.vue')
   },
+  '/guilds': {
+    component: require('./components/Guilds.vue')
+  },
   '/login': {
     component: require('./components/Login.vue')
   },

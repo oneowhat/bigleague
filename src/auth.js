@@ -3,7 +3,7 @@ import {store} from './store';
 function setAuthToken(token, email) {
   var user = JSON.stringify({
     email: email,
-    jwtToken: token
+    token: token
   });
   localStorage.setItem('bluser', user);
   store.user.token = token;
@@ -18,7 +18,7 @@ exports.getAuthToken = function() {
   var user = localStorage.getItem('bluser');
   if(user) {
     user = JSON.parse(user);
-    return 'Bearer ' + user.jwtToken;
+    return 'Bearer ' + user.token;
   }
   return '';
 };

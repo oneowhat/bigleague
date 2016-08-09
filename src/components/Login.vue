@@ -33,7 +33,7 @@ export default {
         email: this.email,
         password: this.password
       };
-      this.$http.post('http://localhost:3000/login', request)
+      this.$http.post(store.api + '/login', request)
         .then((response) => {
           var data = response.json();
           if(response.status === 401) {
