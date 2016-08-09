@@ -3,7 +3,6 @@ var	bodyParser = require('body-parser');
 var	mongojs = require('mongojs');
 var	config = require('./config/config');
 var expressJWT = require('express-jwt');
-var jwt = require('jsonwebtoken');
 var routes = require('./src/api/routes');
 
 var	db = mongojs(config.db);
@@ -12,9 +11,8 @@ var	app = express();
 var cors = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,HEAD');
-  res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin, Accept, Authorization, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
-
+  res.header('Access-Control-Max-Age', 600);
   next();
 }
 
