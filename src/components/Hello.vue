@@ -1,7 +1,9 @@
 <template>
-  <img class="logo" src="../assets/logo.png">
-  <div class="hello">
-    <h1>{{ msg }}</h1>
+  <div id="hello">
+    <img class="logo" src="../assets/logo.png">
+    <div class="hello">
+      <h1>{{ msg }}</h1>
+    </div>
   </div>
 </template>
 
@@ -24,4 +26,9 @@ export default {
 h1 {
   color: #42b983;
 }
+
+#hello {
+  text-align: center;
+}
+
 </style>

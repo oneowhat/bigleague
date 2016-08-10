@@ -8,9 +8,18 @@ export var store = {
     token: null,
     authenticated: false
   },
-  guilds: [],
-  campaigns: [],
-  players: [],
-  matches: []
+  genders: [
+    'Female',
+    'Male',
+    'Neutral'
+  ],
+  positions: [
+    'Attacking Midfielder',
+    'Captain',
+    'Goalkeeper',
+    'Mascot',
+    'Striker',
+    'Winger'
+  ]
 };
 

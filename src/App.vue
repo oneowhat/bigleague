@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <main-nav></main-nav>
-    <router-view></router-view>
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -33,7 +35,6 @@ body {
 #app {
   color: #2c3e50;
   font-family: Source Sans Pro, Helvetica, sans-serif;
-  text-align: center;
 }
 
 #app a {
