@@ -8,6 +8,7 @@
 <script>
 import MainNav from './components/MainNav';
 import auth from './auth.js';
+import {store} from './store.js';
 
 export default {
   replace: false,

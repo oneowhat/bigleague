@@ -2,6 +2,9 @@
   <div>
     {{guild.name}}
   </div>
+  <div v-for="model in models">
+    {{model|json}}
+  </div>
 </template>
 
 <script>
