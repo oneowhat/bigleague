@@ -24,12 +24,12 @@ exports.register = function(newUser, res, next) {
   });
 };
 
-exports.login = function(attempt, res, next){
-  db.users.findOne({email: attempt.email}, function(err, user){
+exports.login = function(attempt, res, next) {
+  db.users.findOne({email: attempt.email}, function(err, user) {
     if(err) return next(err);
     if(user && checkPassword(user, attempt.password)){
       var token = jwt.sign({ username: attempt.email }, config.secret)
-      res.status(200).json(token);
+      res.status(200).json({ token: token, admin: user.admin });
     } else {
       res.status(401).send('Invalid username/password');
     }

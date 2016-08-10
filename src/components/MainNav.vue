@@ -17,8 +17,15 @@
           <li v-if="!authenticated">
             <a v-link="{ path: '/register' }">Register</a>
           </li>
-          <li v-if="authenticated">
-            <a @click="logout" href="javascript:;">Sign out</a>
+          <li v-if="authenticated" class="dropdown">
+            <a href="javascript:;" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{user.email}} <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a @click="logout" href="javascript:;">Sign out</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>

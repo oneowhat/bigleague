@@ -39,7 +39,7 @@ export default {
           if(response.status === 401) {
             this.message = data.message;
           } else {
-            auth.login(data);
+            auth.login(data.token, request.email, data.admin);
             router.go('/');
           }
         });

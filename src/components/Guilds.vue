@@ -1,13 +1,6 @@
 <template>
   <div>
-    <table>
-      <thead>
-        <tr>
-          <th>
-        </tr>
-      </thead>
-    </table>
-    <div v-for="guild in guilds">
+    <div v-for="guild in guilds" v-link="{ name: 'guild', params: { guild: guild.name }}">
       {{guild.name}}
     </div>
   </div>

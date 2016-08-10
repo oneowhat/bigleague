@@ -7,6 +7,7 @@ import auth from './auth';
 Vue.use(VueResource);
 Vue.use(VueRouter);
 
+// vue resource interceptor to pass jwt if present
 Vue.http.interceptors.push((request, next) => {
   request.headers['Authorization'] = auth.getAuthToken();
   next();
@@ -16,15 +17,23 @@ var router = new VueRouter();
 
 router.map({
   '/': {
+    name: 'home',
     component: require('./components/Hello.vue')
   },
   '/guilds': {
+    name: 'guilds',
     component: require('./components/Guilds.vue')
   },
+  '/guilds/:guild': {
+    name: 'guild',
+    component: require('./components/Guild.vue')
+  },
   '/login': {
+    name: 'login',
     component: require('./components/Login.vue')
   },
   '/register': {
+    name: 'register',
     component: require('./components/Register.vue')
   }
 });
