@@ -6,25 +6,11 @@
     {{model|json}}
   </div>
   <div v-if="user.admin">
-    <form class="form-horizontal">
+    <form @submit.prevent="insertModel()" class="form-horizontal">
       <div class="form-group">
         <label for="name" class="col-sm-2 control-label">Name</label>
         <div class="col-sm-9">
           <input v-model="model.name" type="text" class="form-control" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="guild" class="col-sm-2 control-label">Guild</label>
-        <div class="col-sm-9">
-          {{guild.name}}
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="role" class="col-sm-2 control-label">Role</label>
-        <div class="col-sm-9">
-          <select class="form-control" v-model="model.role">
-            <option v-for="role in roles" :value="role">{{role}}</option>
-          </select>
         </div>
       </div>
       <div class="form-group">
@@ -49,8 +35,53 @@
           </select>
         </div>
       </div>
+      <div class="form-group">
+        <label for="jog" class="col-sm-2 control-label">mov</label>
+        <div class="col-sm-1">
+          <input v-model="model.jog" type="number" class="form-control" />
+        </div>
+        <div class="col-sm-1">
+          <input v-model="model.sprint" type="number" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="tac" class="col-sm-2 control-label">Tac</label>
+        <div class="col-sm-1">
+          <input v-model="model.tac" type="number" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="kick" class="col-sm-2 control-label">Kick</label>
+        <div class="col-sm-1">
+          <input v-model="model.kick" type="number" class="form-control" />
+        </div>
+        <div class="col-sm-1">
+          <input v-model="model.kickrange" type="number" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="def" class="col-sm-2 control-label">Def</label>
+        <div class="col-sm-1">
+          <input v-model="model.def" type="number" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="arm" class="col-sm-2 control-label">Arm</label>
+        <div class="col-sm-1">
+          <input v-model="model.arm" type="number" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="kick" class="col-sm-2 control-label">Inf</label>
+        <div class="col-sm-1">
+          <input v-model="model.influence" type="number" class="form-control" />
+        </div>
+        <div class="col-sm-1">
+          <input v-model="model.maxinf" type="number" class="form-control" />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
     </form>
-    {{model | json}}
   </div>
 </template>
 
@@ -70,7 +101,6 @@ export default {
       model: {
         name: "",
         guild: "",
-        role: "",
         gender: "",
         race: [],
         position: "",
@@ -102,7 +132,10 @@ export default {
       var model = this.model;
       model.guild = this.guild.name;
       model.race = this.races.split(',');
-      console.log(model);
+      
+      
+      
+      
     }
   }
 }

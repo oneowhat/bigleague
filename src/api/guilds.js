@@ -1,6 +1,6 @@
-var mongojs = require('mongojs'),
-	config = require('../../config/config'),
-	db = mongojs(config.db, ["guilds", "models"])
+var mongojs = require('mongojs');
+var	config = require('../../config/config');
+var	db = mongojs(config.db, ["guilds", "models"]);
 	
 exports.guilds = function(req, res, next) {
 	db.guilds.find(function(err, guilds){
