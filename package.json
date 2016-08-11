@@ -10,7 +10,7 @@
     "unit": "karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "start": "node server"
+    "api": "node server"
   },
   "dependencies": {
     "babel-runtime": "^6.0.0",

@@ -2,14 +2,14 @@ var mongojs = require('mongojs');
 var	config = require('../../config/config');
 var	db = mongojs(config.db, ["guilds", "models"]);
 	
-exports.guilds = function(req, res, next) {
+exports.all = function(req, res, next) {
 	db.guilds.find(function(err, guilds){
     if(err) return next(err);
 		res.json(guilds);
 	})
 };
 
-exports.guild = function(req, res, next) {
+exports.byName = function(req, res, next) {
 	db.guilds.findOne({ name: req.params.guild }, function(err, guild){
     if(err) return next(err);
     if(guild) {

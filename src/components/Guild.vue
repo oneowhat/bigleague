@@ -130,12 +130,38 @@ export default {
     },
     insertModel: function() {
       var model = this.model;
+      var fetch = this.fetchGuild;
+      var reset = this.reset;
+      
       model.guild = this.guild.name;
       model.race = this.races.split(',');
       
-      
-      
-      
+      this.$http.post(store.api + '/api/models', model)
+        .then((response) => {
+          if (response.status === 201) {
+            this.models.push(model);
+            reset();
+          }
+        });
+    },
+    reset: function() {
+      this.model = {
+        name: "",
+        guild: "",
+        gender: "",
+        race: [],
+        position: "",
+        jog: 0,
+        sprint: 0,
+        tac: 0,
+        kick: 0,
+        kickrange: 0,
+        def: 0,
+        arm: 0,
+        influence: 0,
+        maxinf: 0
+      };
+      this.races = '';
     }
   }
 }

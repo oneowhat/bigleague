@@ -43,7 +43,7 @@ export default {
     return {
       user: store.user,
       tabs: [
-        { text: 'Guilds', auth: false, path: '/guilds' },
+        { text: 'Guilds', auth: true, path: '/guilds' },
         { text: 'Campaign', auth: true, path: '/campaign' },
       ],
     };
