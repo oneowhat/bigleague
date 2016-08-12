@@ -36,12 +36,10 @@ export default {
       this.$http.post(store.api + '/login', request)
         .then((response) => {
           var data = response.json();
-          if(response.status === 401) {
-            this.message = data.message;
-          } else {
-            auth.login(data.token, request.email, data.admin);
-            router.go('/');
-          }
+          auth.login(data.token, data.user);
+          router.go('/');
+        }, (response) => { 
+          this.message = response.body;
         });
     }
   }

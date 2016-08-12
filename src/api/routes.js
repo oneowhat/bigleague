@@ -7,56 +7,27 @@ var	players = require('./players');
 exports.init = function(app) {
   
   // guilds
-  app.get('/api/guilds', function(req, res, next) {
-  	guilds.all(req, res, next);
-  });
-  app.get('/api/guilds/:guild', function(req, res, next) {
-  	guilds.byName(req, res, next);
-  });
-  app.post('/api/guilds', function(req, res, next) {
-    guilds.insert(req.body, res, next);
-  });
+  app.get('/api/guilds', guilds.find);
+  app.get('/api/guilds/:guild', guilds.byName);
+  app.post('/api/guilds', guilds.insert);
   
   // models
-  app.get('/api/models', function(req, res, next) {
-    models.all(req, res, next);
-  });
-  app.get('/api/models/:name', function(req, res, next) {
-    models.byName(req, res, next);
-  });
-  app.post('/api/models', function(req, res, next) {
-    models.insert(req.body, res, next);
-  });
+  app.get('/api/models', models.find);
+  app.get('/api/models/:name', models.byName);
+  app.post('/api/models', models.insert);
   
   // campaigns
-  app.get('/api/campaigns', function(req, res, next) {
-    campaigns.all(req, res, next);
-  });
-  app.get('/api/campaigns/:name', function(req, res, next) {
-    campaigns.byName(req, res, next);
-  });
-  app.post('/api/campaigns', function(req, res, next) {
-    campaigns.insert(req.body, res, next);
-  });
+  app.get('/api/campaigns', campaigns.byUser);
+  app.get('/api/campaigns/:name', campaigns.byName);
+  app.post('/api/campaigns', campaigns.insert);
   
   // players
-  app.get('/api/players', function(req, res, next) {
-    players.all(req, res, next);
-  });
-  app.get('/api/players/:name', function(req, res, next) {
-    players.byName(req, res, next);
-  });
-  app.post('/api/players', function(req, res, next) {
-    players.insert(req.body, res, next);
-  });
+  app.get('/api/players', players.find);
+  app.get('/api/players/:name', players.byName);
+  app.post('/api/players', players.insert);
   
   // users
-  app.post('/register', function(req, res, next) {
-    users.register(req.body, res, next);
-  });
-
-  app.post('/login', function(req, res, next) {
-    users.login(req.body, res, next);
-  });
+  app.post('/register', users.register);
+  app.post('/login', users.login);
   
 };

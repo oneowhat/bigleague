@@ -5,8 +5,10 @@
       <div class="alert alert-danger hidden" :class="{ 'hidden': !message }">
         {{message}}
       </div> 
+      <label for="inputName" class="sr-only">User name (what others will see)</label>
+      <input v-model="name" type="text" id="inputName" class="form-control" placeholder="User name" required autofocus />
       <label for="inputEmail" class="sr-only">Email address</label>
-      <input v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus />
+      <input v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required />
       <label for="inputPassword" class="sr-only">Password</label>
       <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required />
       <label for="inputConfirm" class="sr-only">Confirm password</label>
@@ -26,6 +28,7 @@
 export default {
   data() {
     return {
+      name: '',
       email: '',
       password: '',
       confirm: '',
@@ -44,7 +47,7 @@ export default {
         email: this.email,
         password: this.password
       };
-      this.$http.post('http://localhost:3000/register', request)
+      this.$http.post(store.api + '/register', request)
         .then((response) => {
           var data = response.json();
           if (data.success) {

@@ -2,7 +2,7 @@ var mongojs = require('mongojs');
 var	config = require('../../config/config');
 var db = mongojs(config.db, ["models"]);
 
-exports.all = function(req, res, next) {
+exports.find = function(req, res, next) {
 	db.models.find(function(err, models){
     if(err) return next(err);
 		res.json(models);
@@ -16,8 +16,8 @@ exports.byName = function(req, res, next) {
 	})
 };
 
-exports.insert = function(model, res, next) {
-  db.models.insert(model, function(err, item) {
+exports.insert = function(req, res, next) {
+  db.models.insert(req.body, function(err, item) {
     if(err) return next(err);
     res.status(201).json({ success: true });
   });

@@ -44,7 +44,7 @@ export default {
       user: store.user,
       tabs: [
         { text: 'Guilds', auth: true, path: '/guilds' },
-        { text: 'Campaign', auth: true, path: '/campaign' },
+        { text: 'Campaign', auth: true, path: '/campaigns' },
       ],
     };
   },
@@ -60,12 +60,6 @@ export default {
     }
   },
   methods: {
-    onSetTab(tab) {
-      this.tabs.forEach((item) => {
-        item.active = false;
-      });
-      tab.active = true;
-    },
     logout: function() {
       auth.logout();
       this.$route.router.go('/login');

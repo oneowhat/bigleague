@@ -1,11 +1,9 @@
 var express = require('express');
 var	bodyParser = require('body-parser');
-var	mongojs = require('mongojs');
 var	config = require('./config/config');
 var expressJWT = require('express-jwt');
 var routes = require('./src/api/routes');
 
-var	db = mongojs(config.db);
 var	app = express();
   
 var cors = function(req, res, next) {

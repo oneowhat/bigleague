@@ -2,7 +2,7 @@ var mongojs = require('mongojs');
 var	config = require('../../config/config');
 var	db = mongojs(config.db, ["players"]);
 	
-exports.all = function(req, res, next) {
+exports.find = function(req, res, next) {
 	db.players.find(function(err, players){
     if(err) return next(err);
 		res.json(players);
@@ -16,8 +16,8 @@ exports.byName = function(req, res, next) {
 	})
 };
 
-exports.insert = function(player, res, next) {
-  db.player.insert(players, function(err, item) {
+exports.insert = function(req, res, next) {
+  db.player.insert(req.body, function(err, item) {
     if(err) return next(err);
     res.status(201).json({ success: true });
   });

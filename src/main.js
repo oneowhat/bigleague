@@ -28,6 +28,10 @@ router.map({
     name: 'guild',
     component: require('./components/Guild.vue')
   },
+  '/campaigns': {
+    name: 'campaigns',
+    component: require('./components/Campaigns.vue')
+  },
   '/login': {
     name: 'login',
     component: require('./components/Login.vue')
