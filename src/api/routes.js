@@ -2,7 +2,7 @@ var	guilds = require('./guilds');
 var	models = require('./models');
 var	users = require('./users');
 var	campaigns = require('./campaigns');
-var	players = require('./players');
+var	coaches = require('./coaches');
 
 exports.init = function(app) {
   
@@ -17,14 +17,14 @@ exports.init = function(app) {
   app.post('/api/models', models.insert);
   
   // campaigns
-  app.get('/api/campaigns', campaigns.byUser);
+  app.get('/api/campaigns/:coach', campaigns.byUser);
   app.get('/api/campaigns/:name', campaigns.byName);
   app.post('/api/campaigns', campaigns.insert);
   
   // players
-  app.get('/api/players', players.find);
-  app.get('/api/players/:name', players.byName);
-  app.post('/api/players', players.insert);
+  app.get('/api/coaches', coaches.find);
+  app.get('/api/coaches/:name', coaches.byName);
+  app.post('/api/coaches', coaches.insert);
   
   // users
   app.post('/register', users.register);

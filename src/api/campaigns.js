@@ -3,7 +3,7 @@ var	config = require('../../config/config');
 var	db = mongojs(config.db, ["campaigns"]);
 	
 exports.byUser = function(req, res, next) {
-	db.campaigns.find({ users: req.params.user }, function(err, campaigns) {
+	db.campaigns.find({ coaches: req.params.coach }, function(err, campaigns) {
     if(err) return next(err);
 		res.json(campaigns);
 	})
