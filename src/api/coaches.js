@@ -2,7 +2,7 @@ var mongojs = require('mongojs');
 var	config = require('../../config/config');
 var	db = mongojs(config.db, ["coaches"]);
 	
-exports.find = function(req, res, next) {
+exports.forCampaign = function(req, res, next) {
 	db.coaches.find(function(err, coaches){
     if(err) return next(err);
 		res.json(coaches);

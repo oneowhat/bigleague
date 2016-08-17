@@ -1,6 +1,7 @@
 import {store} from './store';
 
 function setAuthToken(user) {
+  store.user.id = user._id;
   store.user.name = user.name;
   store.user.email = user.email;
   store.user.token = user.token;

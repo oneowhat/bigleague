@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="guild in guilds" v-link="{ name: 'guild', params: { guild: guild.name }}">
+    <div v-for="guild in activeGuilds" v-link="{ name: 'guild', params: { guild: guild.name }}">
       {{guild.name}}
     </div>
   </div>
@@ -13,29 +13,26 @@ export default {
   data() {
     return {
       name: '',
-      guilds: []
+      guilds: store.guilds
     }
   },
-  ready() {
-    this.fetchGuilds();
+  computed: {
+    activeGuilds: function() {
+      return this.guilds.filter(function(guild) {
+        return guild.active;
+      });
+    }
   },
   methods: {
-    fetchGuilds: function() {
-      this.$http.get(store.api + '/api/guilds')
-        .then((response) => {
-          this.guilds = response.json();
-        });
-    },
-    insert: function() {
-      var request = { name: this.name };
-      var fetch = this.fetchGuilds;
-      this.$http.post(store.api + '/api/guilds', request)
-        .then((response) => {
-          if (response.status === 201) {
-            this.guilds.push(request);
-          }
-        });
-    }
+
   }
 }
 </script>
+
+<style scoped>
+
+.guild {
+  
+}
+
+</style>

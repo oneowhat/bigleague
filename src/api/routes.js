@@ -18,7 +18,7 @@ exports.init = function(app) {
   
   // campaigns
   app.get('/api/campaigns/:coach', campaigns.byUser);
-  app.get('/api/campaigns/:name', campaigns.byName);
+  app.get('/api/campaign/:title', campaigns.byTitle);
   app.post('/api/campaigns', campaigns.insert);
   
   // players

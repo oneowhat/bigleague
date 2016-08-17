@@ -9,10 +9,10 @@ exports.byUser = function(req, res, next) {
 	})
 };
 
-exports.byName = function(req, res, next) {
-	db.campaigns.findOne({ name: req.params.name }, function(err, campaign) {
+exports.byTitle = function(req, res, next) {
+	db.campaigns.findOne({ title: req.params.title }, function(err, campaign) {
     if(err) return next(err);
-    res.json(campaign);
+    res.json({ campaign: campaign });
 	})
 };
 

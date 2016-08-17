@@ -13,6 +13,10 @@ Vue.http.interceptors.push((request, next) => {
   next();
 });
 
+Vue.transition('expand', {
+  
+});
+
 var router = new VueRouter();
 
 router.map({
@@ -32,7 +36,7 @@ router.map({
     name: 'campaigns',
     component: require('./components/Campaigns.vue')
   },
-  '/campaigns/:title': {
+  '/campaigns/:campaign': {
     name: 'campaign',
     component: require('./components/Campaign.vue')
   },

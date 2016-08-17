@@ -47,4 +47,15 @@ body {
   height: 100px
 }
 
+.expand-transition {
+  transition: all .3s ease;
+  padding: 10px;
+}
+
+.expand-enter, .expand-leave {
+  height: 0;
+  padding: 0 10px;
+  opacity: 0;
+}
+
 </style>

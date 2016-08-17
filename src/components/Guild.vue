@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{guild.name}}
+    {{guild | json}}
   </div>
   <div v-for="model in models">
     {{model|json}}
@@ -121,12 +121,13 @@ export default {
   },
   methods: {
     fetchGuild: function() {
-      this.$http.get(store.api + '/api/guilds/' + this.$route.params.guild)
-        .then((response) => {
-          var data = response.json();
-          this.guild = data.guild;
-          this.models = data.models;
-        });
+      var guildName = this.$route.params.guild;
+      var vm = this;
+      store.guilds.forEach(function(item) {
+        if(item.name == guildName) {
+          vm.guild = item;
+        }
+      });
     },
     insertModel: function() {
       var model = this.model;

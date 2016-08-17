@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-show="!editing">
-      <div v-for="campaign in campaigns" v-link="{ name: 'campaign', params: { campaign: campaign.id }}">
+    <div v-show="!editing" transition="expand">
+      <div v-for="campaign in campaigns" v-link="{ name: 'campaign', params: { campaign: campaign.title }}">
         {{campaign.title}}
       </div>
       <div :class="{ 'hidden': campaigns.length > 0 }" class="alert alert-info hidden">
@@ -9,7 +9,7 @@
       </div>
       <button @click="newCampaign" class="btn btn-primary" type="button">Start a new campaign</button>
     </div>
-    <div v-show="editing">
+    <div v-show="editing" transition="expand">
       <form @submit.prevent="insert()" class="form-horizontal">
         <div class="form-group">
           <label for="title" class="col-sm-2 control-label">Title</label>
@@ -37,7 +37,6 @@
         </div>
       </form>
     </div>
-    {{campaigns | json}}
   </div>
 </template>
 
