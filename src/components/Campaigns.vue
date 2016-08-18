@@ -11,26 +11,12 @@
     </div>
     <div v-show="editing" transition="expand">
       <form @submit.prevent="insert()" class="form-horizontal">
+        <campaign-editor 
+          :campaign="campaign" 
+          :editing="true">
+        </campaign-editor>
         <div class="form-group">
-          <label for="title" class="col-sm-2 control-label">Title</label>
-          <div class="col-sm-9">
-            <input v-model="campaign.title" type="text" placeholder="Title" class="form-control" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="location" class="col-sm-2 control-label">Location</label>
-          <div class="col-sm-9">
-            <input v-model="campaign.location" type="text" placeholder="Location" class="form-control" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="joinCode" class="col-sm-2 control-label">Join code</label>
-          <div class="col-sm-9">
-            <input v-model="campaign.joinCode" type="text" placeholder="Join code" class="form-control" />
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-9 col-sm-offset-2">
+          <div class="col-sm-9 col-sm-offset-3">
             <button @click="cancelEdit()" type="button" class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary">Save</button>
           </div>
@@ -42,8 +28,10 @@
 
 <script>
 import {store} from '../store.js';
+import CampaignEditor from './CampaignEditor.vue';
 
 export default {
+  components: { CampaignEditor },
   data() {
     return {
       campaigns: [],
@@ -52,7 +40,8 @@ export default {
         title: '',
         location: '',
         joinCode: '',
-        longshanks: '',
+        longshanks: store.user.name,
+        acceptJoinRequests: false,
         coaches: []
       }
     }

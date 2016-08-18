@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <main-nav></main-nav>
-    <div class="container">
+    <div class="container main">
       <router-view></router-view>
     </div>
   </div>
@@ -45,6 +45,10 @@ body {
 .logo {
   width: 100px;
   height: 100px
+}
+
+.container {
+  width:1000px;
 }
 
 .expand-transition {
