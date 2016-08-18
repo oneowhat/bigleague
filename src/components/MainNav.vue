@@ -6,6 +6,16 @@
 	    </div>
 	    <div class="collapse navbar-collapse">
 	     	<ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="javascript:;" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Guilds
+            </a>
+            <ul class="dropdown-menu">
+              <li v-for="guild in guilds">
+                <a v-link="{ name: 'guild', params: { guild: guild.name }}">{{guild.name}}</a>
+              </li>
+            </ul>
+          </li>
 	        <li v-for="tab in tabsForUser">
 						<a v-link="{ path: tab.path }">{{tab.text}}</a>
           </li>
@@ -42,8 +52,8 @@ export default {
   data() {
     return {
       user: store.user,
+      guilds: store.guilds,
       tabs: [
-        { text: 'Guilds', auth: true, path: '/guilds' },
         { text: 'Campaign', auth: true, path: '/campaigns' },
       ],
     };

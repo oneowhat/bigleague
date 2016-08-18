@@ -1,123 +1,56 @@
 <template>
-  <div>
-    {{guild | json}}
-  </div>
-  <div v-for="model in models">
-    {{model|json}}
-  </div>
-  <div v-if="user.admin">
-    <form @submit.prevent="insertModel()" class="form-horizontal">
-      <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Name</label>
-        <div class="col-sm-9">
-          <input v-model="model.name" type="text" class="form-control" />
-        </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <h4>Captains</h4>
+      <div v-for="captain in guild.captains">
+        <a href="javascript:;" @click="setPlayer(captain)">{{captain.name}}</a>
       </div>
-      <div class="form-group">
-        <label for="gender" class="col-sm-2 control-label">Gender</label>
-        <div class="col-sm-9">
-          <select class="form-control" v-model="model.gender">
-            <option v-for="gender in genders" :value="gender">{{gender}}</option>
-          </select>
-        </div>
+      
+      <h4>Mascots</h4>
+      <div v-for="mascot in guild.mascots">
+        <a href="javascript:;" @click="setPlayer(mascot)">{{mascot.name}}</a>
       </div>
-      <div class="form-group">
-        <label for="race" class="col-sm-2 control-label">Race & Ethnicity</label>
-        <div class="col-sm-9">
-          <input v-model="races" type="text" class="form-control" />
-        </div>
+      
+      <h4>Players</h4>
+      <div v-for="player in guild.players">
+        <a href="javascript:;" @click="setPlayer(player)">{{player.name}}</a>
       </div>
-      <div class="form-group">
-        <label for="position" class="col-sm-2 control-label">Position</label>
-        <div class="col-sm-9">
-          <select class="form-control" v-model="model.position">
-            <option v-for="position in positions" :value="position">{{position}}</option>
-          </select>
-        </div>
+      
+      <h4 v-if="!isUnion">Union Players</h4>
+      <div v-if="!isUnion" v-for="player in union">
+        <a href="javascript:;" @click="setPlayer(player)">{{player.name}}</a>
       </div>
-      <div class="form-group">
-        <label for="jog" class="col-sm-2 control-label">mov</label>
-        <div class="col-sm-1">
-          <input v-model="model.jog" type="number" class="form-control" />
-        </div>
-        <div class="col-sm-1">
-          <input v-model="model.sprint" type="number" class="form-control" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="tac" class="col-sm-2 control-label">Tac</label>
-        <div class="col-sm-1">
-          <input v-model="model.tac" type="number" class="form-control" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="kick" class="col-sm-2 control-label">Kick</label>
-        <div class="col-sm-1">
-          <input v-model="model.kick" type="number" class="form-control" />
-        </div>
-        <div class="col-sm-1">
-          <input v-model="model.kickrange" type="number" class="form-control" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="def" class="col-sm-2 control-label">Def</label>
-        <div class="col-sm-1">
-          <input v-model="model.def" type="number" class="form-control" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="arm" class="col-sm-2 control-label">Arm</label>
-        <div class="col-sm-1">
-          <input v-model="model.arm" type="number" class="form-control" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="kick" class="col-sm-2 control-label">Inf</label>
-        <div class="col-sm-1">
-          <input v-model="model.influence" type="number" class="form-control" />
-        </div>
-        <div class="col-sm-1">
-          <input v-model="model.maxinf" type="number" class="form-control" />
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary">Save</button>
-    </form>
+    </div>
+    <div class="col-sm-8">
+      <player :player="activePlayer"></player>
+    </div>
   </div>
 </template>
 
 <script>
 import {store} from '../store.js';
+import Player from './Player.vue';
 
 export default {
+  route: { canReuse: false },
+  components: { Player },
   data() {
     return {
       user: store.user,
-      roles: store.roles,
-      genders: store.genders,
-      positions: store.positions,
       guild: {},
-      models: [],
-      races: '',
-      model: {
-        name: "",
-        guild: "",
-        gender: "",
-        race: [],
-        position: "",
-        jog: 0,
-        sprint: 0,
-        tac: 0,
-        kick: 0,
-        kickrange: 0,
-        def: 0,
-        arm: 0,
-        influence: 0,
-        maxinf: 0
+      union: [],
+      activePlayer: {
+        name: ''
       }
     }
   },
   ready() {
     this.fetchGuild();
+  },
+  computed: {
+    isUnion: function() {
+      return this.guild.name === 'The Union';
+    }
   },
   methods: {
     fetchGuild: function() {
@@ -127,42 +60,15 @@ export default {
         if(item.name == guildName) {
           vm.guild = item;
         }
+        if(item.name === 'The Union') {
+          vm.union = item.players.filter(function(player) {
+            return player.selective.indexOf(guildName) > -1;
+          });
+        }
       });
     },
-    insertModel: function() {
-      var model = this.model;
-      var fetch = this.fetchGuild;
-      var reset = this.reset;
-      
-      model.guild = this.guild.name;
-      model.race = this.races.split(',');
-      
-      this.$http.post(store.api + '/api/models', model)
-        .then((response) => {
-          if (response.status === 201) {
-            this.models.push(model);
-            reset();
-          }
-        });
-    },
-    reset: function() {
-      this.model = {
-        name: "",
-        guild: "",
-        gender: "",
-        race: [],
-        position: "",
-        jog: 0,
-        sprint: 0,
-        tac: 0,
-        kick: 0,
-        kickrange: 0,
-        def: 0,
-        arm: 0,
-        influence: 0,
-        maxinf: 0
-      };
-      this.races = '';
+    setPlayer: function(player) {
+      this.activePlayer = player;
     }
   }
 }

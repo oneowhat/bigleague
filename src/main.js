@@ -13,9 +13,7 @@ Vue.http.interceptors.push((request, next) => {
   next();
 });
 
-Vue.transition('expand', {
-  
-});
+Vue.transition('expand', { });
 
 var router = new VueRouter();
 

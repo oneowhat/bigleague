@@ -15,19 +15,21 @@ export var store = {
       name: "Alchemist's", 
       active: true,
       captains: [
-        { name: 'Midas' }
+        { name: 'Midas' },
+        { name: 'Smoke' },
+      ],
+      mascots: [
+        { name: 'Flask' },
+        { name: 'Naja' },
       ],
       players: [
         { name: 'Calculus' },
+        { name: 'Compound' },
+        { name: 'Katalyst' },
         { name: 'Mercury' },
-        { name: 'Calculus' },
-        { name: 'Calculus' },
-        { name: 'Calculus' },
-        { name: 'Calculus' },
-        { name: 'Calculus' },
-      ],
-      mascots: [
-        { name: 'Flask' }
+        { name: 'Venin' },
+        { name: 'Veteran Katalyst' },
+        { name: 'Vitriol' }
       ]
     },
     {
@@ -37,6 +39,10 @@ export var store = {
         { name: 'Esters' },
         { name: 'Tapper' }
       ],
+      mascots: [
+        { name: 'Scum' },
+        { name: 'Quaff' }
+      ],
       players: [
         { name: 'Friday' },
         { name: 'Hooper' },
@@ -45,10 +51,6 @@ export var store = {
         { name: 'Stave' },
         { name: 'Stoker' },
         { name: 'Veteran Spigot' }
-      ],
-      mascots: [
-        { name: 'Scum' },
-        { name: 'Quaff' }
       ]
     },
     { 
@@ -58,6 +60,10 @@ export var store = {
         { name: 'Fillet' },
         { name: 'Ox' }
       ],
+      mascots: [
+        { name: 'Princess' },
+        { name: 'Truffles' }
+      ],
       players: [
         { name: 'Boar' },
         { name: 'Boiler' },
@@ -66,63 +72,118 @@ export var store = {
         { name: 'Shank' },
         { name: 'Tenderizer' },
         { name: 'Veteran Brisket' }
-      ],
-      mascots: [
-        { name: 'Princess' },
-        { name: 'Truffles' }
       ]
     },
     { 
       name: "Engineer's", 
       active: true,
-      captains: [],
-      players: [],
-      mascots: [] 
+      captains: [
+        { name: 'Ballista' },
+        { name: 'Pin Vice' }
+      ],
+      mascots: [
+        { name: 'Mainspring' },
+        { name: 'Mother' }
+      ],
+      players: [
+        { name: 'Colossus' },
+        { name: 'Compound' },
+        { name: 'Hoist' },
+        { name: 'Ratchet' },
+        { name: 'Salvo' },
+        { name: 'Velocity' },
+        { name: 'Veteran Velocity' }
+      ]
     },
     { 
       name: "Farmer's", 
       active: false,
       captains: [],
+      mascots: [],
       players: [
         { name: 'Tater' }
-      ],
-      mascots: []
+      ]
     },
     { 
       name: "Fisherman's",
       active: true,
-      captains: [],
-      players: [],
-      mascots: []
+      captains: [
+        { name: 'Corsair' },
+        { name: 'Shark' }
+      ],
+      mascots: [
+        { name: 'Salt' },
+        { name: 'Tentacles' }
+      ],
+      players: [
+        { name: 'Angel' },
+        { name: 'Greyscales' },
+        { name: 'Jac' },
+        { name: 'Kraken' },
+        { name: 'Sakana' },
+        { name: 'Siren' },
+        { name: 'Veteran Siren' }
+      ]
     },
     { 
       name: "Hunter's", 
       active: true,
-      captains: [],
-      players: [],
-      mascots: [] 
+      captains: [
+        { name: 'Theron' }
+      ],
+      mascots: [
+        { name: 'Fahad' }
+      ],
+      players: [
+        { name: 'Chaska' },
+        { name: 'Egret' },
+        { name: 'Hearne' },
+        { name: 'Jaecar' },
+        { name: 'Seenah' },
+        { name: 'Zarola' }
+      ] 
     },
     { 
       name: "Mason's", 
       active: true,
       captains: [
+        { name: 'Hammer' },
         { name: 'Honour' }
       ],
-      players: [
-        { name: 'Chisel' }
-      ],
       mascots: [
-        { name: 'Marbles' }
+        { name: 'Marbles' },
+        { name: 'Wrecker' }
+      ],
+      players: [
+        { name: 'Brick' },
+        { name: 'Chisel' },
+        { name: 'Flint' },
+        { name: 'Harmony' },
+        { name: 'Mallet' },
+        { name: 'Tower' },
+        { name: 'Veteran Harmony' },
       ]
     },
     { 
       name: "Mortician's", 
       active: true,
       captains: [
-        { name: 'Obulus' }
+        { name: 'Obulus' },
+        { name: 'Scalpel' }
       ],
-      players: [],
-      mascots: [] 
+      mascots: [
+        { name: 'Dirge' },
+        { name: 'Vileswarm' }
+      ],
+      players: [
+        { name: 'Bonesaw' },
+        { name: 'Casket' },
+        { name: 'Cosset' },
+        { name: 'Ghast' },
+        { name: 'Graves' },
+        { name: 'Silence' },
+        { name: 'Veteran Graves' },
+      ] 
     },
     { 
       name: "The Union", 
@@ -131,16 +192,23 @@ export var store = {
         { name: 'Blackheart' },
         { name: 'Veteran Rage' }
       ],
-      players: [
-        { name: 'Avarisse' },
-        { name: 'Greede' },
-        { name: 'Decimate' },
-        { name: 'Rage' },
-        { name: 'Gutter' },
-        { name: 'Hemlock' },
-        
+      mascots: [
+        { name: 'Coin' },
+        { name: 'Strongbox' }
       ],
-      mascots: [] 
+      players: [
+        { name: 'Avarisse', selective: ["Alchemist's", "Brewer's", "Butcher's", "Engineer's", "Farmer's", "Fisherman's", "Hunter's", "Mason's", "Mortician's"] },
+        { name: 'Decimate', selective: ["Alchemist's", "Butcher's", "Engineer's", "Mason's"] },
+        { name: 'Fangtooth', selective: ["Brewer's", "Fisherman's", "Mortician's"] },
+        { name: 'Greede', selective: ["Alchemist's", "Brewer's", "Butcher's", "Engineer's", "Farmer's", "Fisherman's", "Hunter's", "Mason's", "Mortician's"] },
+        { name: 'Gutter', selective: ["Brewer's", "Butcher's", "Engineer's", "Fisherman's"] },
+        { name: 'Harry "The Hat"', selective: ["Alchemist's", "Brewer's", "Butcher's", "Engineer's"] },
+        { name: 'Hemlocke', selective: ["Alchemist's", "Brewer's", "Fisherman's", "Hunter's"] },
+        { name: 'Minx', selective: ["Butcher's", "Hunter's", "Mason's", "Mortician's"] },
+        { name: 'Mist', selective: ["Alchemist's", "Mason's", "Mortician's"] },
+        { name: 'Rage', selective: ["Brewer's", "Butcher's", "Engineer's", "Mortician's"] },
+        { name: 'Snakeskin', selective: ["Alchemist's", "Fisherman's", "Mason's"] }
+      ] 
     }
   ],
   genders: [
