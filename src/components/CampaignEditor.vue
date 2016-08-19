@@ -28,7 +28,7 @@
       <label for="acceptJoinRequests" class="col-sm-3 control-label">Accept join requests</label>
       <div class="col-sm-7">
         <input v-model="campaign.acceptJoinRequests" v-show="editing" type="checkbox" :disabled="joinRequestsDisabled" />
-        <span v-show="!editing" class="glyphicon" v-bind:class="campaign.acceptJoinRequests ? 'glyphicon-ok' : ''"></span>
+        <span v-show="!editing">{{ campaign.acceptJoinRequests | boolString }}</span>
       </div>
     </div>
   </div>
@@ -47,6 +47,11 @@ export default {
   computed: {
     joinRequestsDisabled: function() {
       return this.campaign.location === '';
+    }
+  },
+  filters: {
+    boolString: function(val) {
+      return val ? 'Yes' : 'No';
     }
   },
   methods: {

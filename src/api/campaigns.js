@@ -3,7 +3,12 @@ var	config = require('../../config/config');
 var	db = mongojs(config.db, ["campaigns"]);
 	
 exports.byUser = function(req, res, next) {
-	db.campaigns.find({ coaches: req.params.coach }, function(err, campaigns) {
+	db.campaigns.find({ 
+    $or: [
+      { coaches: { name: req.params.coach } },
+      { longshanks: req.params.coach }
+    ]
+  }, function(err, campaigns) {
     if(err) return next(err);
 		res.json(campaigns);
 	})
@@ -22,3 +27,21 @@ exports.insert = function(req, res, next) {
     res.status(201).json({ success: true });
   });
 };
+
+exports.update = function(req, res, next) {
+  var campaign = req.body;
+  db.campaigns.findAndModify({
+    query: { _id: mongojs.ObjectId(campaign._id) },
+    update: {
+      $set: { 
+        title: campaign.title, 
+        acceptJoinRequests: campaign.acceptJoinRequests,
+        location: campaign.location,
+        joinCode: campaign.joinCode 
+      }
+    }
+  }, function(err, doc, lastError) {
+    if(err) return next(err);
+    res.status(200).send({ success: true });
+  });
+}

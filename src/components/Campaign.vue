@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div class="alert alert-success hidden" :class="{ 'hidden': successMessage.length === 0 }">
+      <button v-on:click="dismissMessages" type="button" class="close close-alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      {{successMessage}}
+    </div> 
+    <div class="alert alert-success hidden" :class="{ 'hidden': failMessage.length === 0 }">
+      <button v-on:click="dismissMessages" type="button" class="close close-alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      {{failMessage}}
+    </div> 
     <form @submit.prevent="update()" class="form-horizontal">
       <campaign-editor 
         :campaign="campaign" 
@@ -15,20 +23,43 @@
         </div>
       </div>
     </form>
+    <table class="table">
+      <caption>Coaches</caption>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr is="coach" v-for="coach in campaign.coaches" :coach="coach"></tr>
+      </tbody>
+    </table>
+    <div v-show="campaign.coaches.length === 0" class="alert alert-info">
+      No coaches yet, add some! 
+      &nbsp;&nbsp;&nbsp;
+      <button @click="addCoach" type="button" class="btn btn-primary">Add Coach</button>
+    </div>
+    {{campaign|json}}
   </div>
 </template>
 
 <script>
 import {store} from '../store.js';
 import CampaignEditor from './CampaignEditor.vue';
+import Coach from './Coach.vue';
   
 export default {
-  components: { CampaignEditor },
+  components: { CampaignEditor, Coach },
   data() {
     return {
       user: store.user,
-      campaign: {},
-      editing: false
+      campaign: {
+        coaches: []
+      },
+      editing: false,
+      successMessage: '',
+      failMessage: ''
     }
   },
   ready() {
@@ -50,12 +81,24 @@ export default {
       this.editing = false;
     },
     update: function() {
-      /*
-      this.$http.put(store.api + '/api/campaign/' + campaignName, this.campaign)
+      var vm = this;
+      this.$http.put(store.api + '/api/campaigns', this.campaign)
         .then((response) => {
-          this.campaign = response.json().campaign;
+          if(response.status === 200) {
+            vm.successMessage = "Campaign updated."
+            vm.editing = false;
+          }
+        }, (response) => {
+          vm.failMessage = store.defaultError;
         });
-        */
+        
+    },
+    addCoach: function() {
+    
+    },
+    dismissMessages: function() {
+      this.successMessage = '';
+      this.failMessage = '';
     }
   }
 };

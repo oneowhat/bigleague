@@ -211,6 +211,7 @@ export var store = {
       ] 
     }
   ],
+  defaultError: 'Something went wrong :(',
   genders: [
     'Female',
     'Male',
