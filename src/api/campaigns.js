@@ -1,17 +1,23 @@
 var mongojs = require('mongojs');
 var	config = require('../../config/config');
-var	db = mongojs(config.db, ["campaigns"]);
+var	db = mongojs(config.db, ['campaigns', 'coaches']);
 	
 exports.byUser = function(req, res, next) {
-	db.campaigns.find({ 
-    $or: [
-      { coaches: { name: req.params.coach } },
-      { longshanks: req.params.coach }
-    ]
-  }, function(err, campaigns) {
+  db.coaches.find({ user: req.params.coach }, function(err, coaches) {
     if(err) return next(err);
-		res.json(campaigns);
-	})
+    var campaign_ids = coaches.map(function(coach) {
+      return mongojs.ObjectId(coach.campaign_id);
+    });
+    db.campaigns.find({ 
+      $or: [
+        { _id: { $in: campaign_ids } },
+        { longshanks: req.params.coach }
+      ]
+    }, function(err, campaigns) {
+      if(err) return next(err);
+      res.json(campaigns);
+    });
+  });
 };
 
 exports.byTitle = function(req, res, next) {

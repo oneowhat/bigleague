@@ -33,7 +33,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr is="coach" v-for="coach in campaign.coaches" 
+        <tr is="coach" v-for="coach in coaches" 
           :coach="coach"
           :editing="false"
           :show-cancel="true">
@@ -41,7 +41,8 @@
         <tr is="coach"
           :coach="newCoach"
           :editing="true"
-          :show-cancel="false">
+          :show-cancel="false"
+          :save="addCoach">
         </tr>
       </tbody>
     </table>
@@ -60,9 +61,8 @@ export default {
   data() {
     return {
       user: store.user,
-      campaign: {
-        coaches: []
-      },
+      campaign: {},
+      coaches: [],
       newCoach: {
         name: '',
         email: ''
@@ -74,6 +74,7 @@ export default {
   },
   ready() {
     this.fetchCampaign();
+    this.fetchCoaches();
   },
   methods: {
     fetchCampaign: function() {
@@ -84,6 +85,14 @@ export default {
           this.campaign = response.json().campaign;
         });
     },
+    fetchCoaches: function() {
+      var campaignName = this.$route.params.campaign;
+      var vm = this;
+      this.$http.get(store.api + '/api/coaches/' + campaignName)
+        .then((response) => {
+          this.coaches = response.json();
+        });
+    },
     edit: function() {
       this.editing = true;
     },
@@ -91,7 +100,9 @@ export default {
       this.editing = false;
     },
     update: function() {
+    
       var vm = this;
+      
       this.$http.put(store.api + '/api/campaigns', this.campaign)
         .then((response) => {
           if(response.status === 200) {
@@ -104,10 +115,25 @@ export default {
         
     },
     addCoach: function() {
+    
+      var vm = this;
       var coach = bl.clone(this.newCoach);
-      this.campaign.coaches.push(coach);
-      this.newCoach.name = '';
-      this.newCoach.email = '';
+      coach.campaign_id = this.campaign._id;
+      
+      this.$http.post(store.api + '/api/coaches', coach)
+        .then((response) => {
+          if(response.status === 201) {
+            vm.successMessage = "Coach " + coach.name + " added.";
+            vm.coaches.push(coach);
+            this.newCoach.name = '';
+            this.newCoach.email = '';
+          } else {
+            vm.failMessage = response.message;
+          }
+        }, (response) => {
+          failMessage = store.defaultError;
+        });
+        
     },
     dismissMessages: function() {
       this.successMessage = '';
