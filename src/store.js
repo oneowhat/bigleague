@@ -227,3 +227,27 @@ export var store = {
   ]
 };
 
+export var bl = {
+  
+  first: function (arr, predicate) {
+    var i, l = arr.length;
+    for (i = 0; i < l; i++) {
+        if (predicate(arr[i])) {
+            return arr[i];
+        }
+    }
+  },
+
+  any: function (arr, predicate) {
+    return sol.first(arr, predicate) !== undefined;
+  },
+
+  clone: function (obj) {
+    var str = JSON.stringify(obj),
+      copy = JSON.parse(str);
+
+    return copy;
+  }
+  
+};
+

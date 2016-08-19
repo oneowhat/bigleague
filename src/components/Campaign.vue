@@ -29,23 +29,29 @@
         <tr>
           <th>Name</th>
           <th>Email</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr is="coach" v-for="coach in campaign.coaches" :coach="coach"></tr>
+        <tr is="coach" v-for="coach in campaign.coaches" 
+          :coach="coach"
+          :editing="false"
+          :show-cancel="true">
+        </tr>
+        <tr is="coach"
+          :coach="newCoach"
+          :editing="true"
+          :show-cancel="false">
+        </tr>
       </tbody>
     </table>
-    <div v-show="campaign.coaches.length === 0" class="alert alert-info">
-      No coaches yet, add some! 
-      &nbsp;&nbsp;&nbsp;
-      <button @click="addCoach" type="button" class="btn btn-primary">Add Coach</button>
-    </div>
     {{campaign|json}}
   </div>
 </template>
 
 <script>
 import {store} from '../store.js';
+import {bl} from '../store.js';
 import CampaignEditor from './CampaignEditor.vue';
 import Coach from './Coach.vue';
   
@@ -56,6 +62,10 @@ export default {
       user: store.user,
       campaign: {
         coaches: []
+      },
+      newCoach: {
+        name: '',
+        email: ''
       },
       editing: false,
       successMessage: '',
@@ -94,7 +104,10 @@ export default {
         
     },
     addCoach: function() {
-    
+      var coach = bl.clone(this.newCoach);
+      this.campaign.coaches.push(coach);
+      this.newCoach.name = '';
+      this.newCoach.email = '';
     },
     dismissMessages: function() {
       this.successMessage = '';
