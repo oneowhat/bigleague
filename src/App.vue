@@ -30,16 +30,25 @@ html {
 
 body {
   height: 100%;
+  background-image: url(./assets/Steamforged.jpg);
 }
 
 #app {
   color: #2c3e50;
   font-family: Source Sans Pro, Helvetica, sans-serif;
+  height: 100%;
 }
 
 #app a {
   color: #42b983;
   text-decoration: none;
+}
+
+.main {
+  margin-top: -20px;
+  padding: 20px 0 0 40px;
+  height: 100%;
+  background-color: white;
 }
 
 .logo {
