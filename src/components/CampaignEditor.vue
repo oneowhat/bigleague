@@ -12,8 +12,8 @@
     <div class="form-group">
       <label for="passphrase" class="control-label">Coach pass phrase</label>
       <input v-model="campaign.passphrase" type="text" placeholder="Coach pass phrase" class="form-control" />
-    </div>      
-    <div class="form-group">
+    </div>
+    <div class="form-group text-center">
       <button @click="cancelEdit" type="button" class="btn btn-default">Cancel</button>
       <button type="submit" class="btn btn-primary">Save</button>
     </div>
@@ -21,13 +21,9 @@
 </template>
 
 <script>
-  
+
 export default {
   props: ['campaign', 'cancelEdit']
 };
 
 </script>
-
-<style scoped>
-  
-</style>

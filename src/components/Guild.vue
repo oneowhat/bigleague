@@ -9,17 +9,14 @@
         <div v-for="captain in guild.captains">
           <a href="javascript:;" @click="setPlayer(captain)">{{captain.name}}</a>
         </div>
-        
         <h4>Mascots</h4>
         <div v-for="mascot in guild.mascots">
           <a href="javascript:;" @click="setPlayer(mascot)">{{mascot.name}}</a>
         </div>
-        
         <h4>Players</h4>
         <div v-for="player in guild.players">
           <a href="javascript:;" @click="setPlayer(player)">{{player.name}}</a>
         </div>
-        
         <h4 v-if="!isUnion">Union Players</h4>
         <div v-if="!isUnion" v-for="player in union">
           <a href="javascript:;" @click="setPlayer(player)">{{player.name}}</a>

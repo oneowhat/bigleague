@@ -16,7 +16,7 @@
       </div>
       <div class="col-sm-4">{{campaign.title}}</div>
       <div class="col-sm-3">
-        <div v-show="!editing">
+        <div>
           <button @click="edit()" type="button" class="btn btn-default">Edit</button>
         </div>
       </div>
@@ -34,12 +34,6 @@
       <div class="col-sm-7">{{campaign.passphrase}}</div>
     </div>
     <hr>
-    <form @submit.prevent="update()" v-show="editing">
-      <campaign-editor
-        :campaign="campaign"
-        :cancel-edit="cancelEdit">
-      </campaign-editor>
-    </form>
     <table class="table">
       <caption>Coaches</caption>
       <thead>
@@ -64,7 +58,27 @@
         </tr>
       </tbody>
     </table>
-    {{campaign|json}}
+    <div class="modal fade" id="modalCampaign" tabindex="-1" role="dialog" aria-labelledby="modalCampaign">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Campaign</h4>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-warning hidden">
+              {{failMessage}}
+            </div>
+            <form @submit.prevent="update()">
+              <campaign-editor
+                :campaign="campaign"
+                :cancel-edit="cancelEdit">
+              </campaign-editor>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -87,7 +101,6 @@ export default {
         confirmed: false,
         user_id: {}
       },
-      editing: false,
       successMessage: '',
       failMessage: ''
     }
@@ -114,15 +127,13 @@ export default {
         });
     },
     edit: function() {
-      this.editing = true;
+      $('#modalCampaign').modal('show');
     },
     cancelEdit: function() {
-      this.editing = false;
+      $('#modalCampaign').modal('hide');
     },
     update: function() {
-
       var vm = this;
-
       this.$http.put(store.api + '/api/campaigns', this.campaign)
         .then((response) => {
           if(response.status === 200) {
@@ -135,7 +146,6 @@ export default {
 
     },
     addCoach: function() {
-
       var vm = this;
       var coach = bl.clone(this.newCoach);
       coach.campaign_id = this.campaign._id;
@@ -151,7 +161,7 @@ export default {
             vm.failMessage = response.message;
           }
         }, (response) => {
-          failMessage = store.defaultError;
+          vm.failMessage = store.defaultError;
         });
 
     },
