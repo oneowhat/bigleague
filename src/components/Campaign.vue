@@ -1,27 +1,44 @@
 <template>
   <div>
     <div class="alert alert-success hidden" :class="{ 'hidden': successMessage.length === 0 }">
-      <button v-on:click="dismissMessages" type="button" class="close close-alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <button v-on:click="dismissMessages" type="button" class="close close-alert"
+        aria-label="Close"><span aria-hidden="true">&times;</span></button>
       {{successMessage}}
-    </div> 
+    </div>
     <div class="alert alert-success hidden" :class="{ 'hidden': failMessage.length === 0 }">
-      <button v-on:click="dismissMessages" type="button" class="close close-alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <button v-on:click="dismissMessages" type="button" class="close close-alert"
+        aria-label="Close"><span aria-hidden="true">&times;</span></button>
       {{failMessage}}
-    </div> 
-    <form @submit.prevent="update()" class="form-horizontal">
-      <campaign-editor 
-        :campaign="campaign" 
-        :editing.sync="editing">
-      </campaign-editor>
-      <div class="form-group">
-        <div v-show="editing" class="col-sm-9 col-sm-offset-3">
-          <button @click="cancelEdit()" type="button" class="btn btn-default">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-        <div v-show="!editing" class="col-sm-9 col-sm-offset-3">
+    </div>
+    <div class="row">
+      <div class="col-sm-5 text-right">
+        <label class="control-label">Title</label>
+      </div>
+      <div class="col-sm-4">{{campaign.title}}</div>
+      <div class="col-sm-3">
+        <div v-show="!editing">
           <button @click="edit()" type="button" class="btn btn-default">Edit</button>
         </div>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5 text-right">
+        <label class="control-label">Location</label>
+      </div>
+      <div class="col-sm-7">{{campaign.location}}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5 text-right">
+        <label class="control-label">Coach pass phrase</label>
+      </div>
+      <div class="col-sm-7">{{campaign.passphrase}}</div>
+    </div>
+    <hr>
+    <form @submit.prevent="update()" v-show="editing">
+      <campaign-editor
+        :campaign="campaign"
+        :cancel-edit="cancelEdit">
+      </campaign-editor>
     </form>
     <table class="table">
       <caption>Coaches</caption>
@@ -33,10 +50,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr is="coach" v-for="coach in coaches" 
+        <tr is="coach" v-for="coach in coaches"
           :coach="coach"
           :editing="false"
-          :show-cancel="true">
+          :show-cancel="true"
+          :save="updateCoach">
         </tr>
         <tr is="coach"
           :coach="newCoach"
@@ -55,7 +73,7 @@ import {store} from '../store.js';
 import {bl} from '../store.js';
 import CampaignEditor from './CampaignEditor.vue';
 import Coach from './Coach.vue';
-  
+
 export default {
   components: { CampaignEditor, Coach },
   data() {
@@ -65,7 +83,9 @@ export default {
       coaches: [],
       newCoach: {
         name: '',
-        email: ''
+        email: '',
+        confirmed: false,
+        user_id: {}
       },
       editing: false,
       successMessage: '',
@@ -100,9 +120,9 @@ export default {
       this.editing = false;
     },
     update: function() {
-    
+
       var vm = this;
-      
+
       this.$http.put(store.api + '/api/campaigns', this.campaign)
         .then((response) => {
           if(response.status === 200) {
@@ -112,14 +132,14 @@ export default {
         }, (response) => {
           vm.failMessage = store.defaultError;
         });
-        
+
     },
     addCoach: function() {
-    
+
       var vm = this;
       var coach = bl.clone(this.newCoach);
       coach.campaign_id = this.campaign._id;
-      
+
       this.$http.post(store.api + '/api/coaches', coach)
         .then((response) => {
           if(response.status === 201) {
@@ -133,7 +153,10 @@ export default {
         }, (response) => {
           failMessage = store.defaultError;
         });
-        
+
+    },
+    updateCoach: {
+
     },
     dismissMessages: function() {
       this.successMessage = '';
@@ -145,5 +168,5 @@ export default {
 </script>
 
 <style scoped>
-  
+
 </style>

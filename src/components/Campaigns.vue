@@ -39,9 +39,8 @@ export default {
       campaign: {
         title: '',
         location: '',
-        joinCode: '',
+        passphrase: '',
         longshanks: store.user.name,
-        acceptJoinRequests: false,
         coaches: []
       }
     }

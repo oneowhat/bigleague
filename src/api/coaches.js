@@ -1,6 +1,6 @@
 var mongojs = require('mongojs');
 var	config = require('../../config/config');
-var	db = mongojs(config.db, ["coaches"]);
+var	db = mongojs(config.db, ["coaches", "users"]);
 	
 exports.forCampaign = function(req, res, next) {
 	db.coaches.find({ campaign: req.campaign }, function(err, coaches){
@@ -17,8 +17,16 @@ exports.byName = function(req, res, next) {
 };
 
 exports.insert = function(req, res, next) {
-  db.coaches.insert(req.body, function(err, item) {
+  var coach = req.body;
+  db.users.findOne({ email: coach.email }, function(err, user) {
     if(err) return next(err);
-    res.status(201).json({ success: true });
+    
+    if(user) 
+      coach.user_id = user._id;
+    
+    db.coaches.insert(coach, function(err, item) {
+      if(err) return next(err);
+      res.status(201).json({ success: true });
+    });
   });
 };
