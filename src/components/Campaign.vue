@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="alert alert-success hidden" :class="{ 'hidden': successMessage.length === 0 }">
-      <button v-on:click="dismissMessages" type="button" class="close close-alert"
-        aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <button v-on:click="dismissMessages" type="button" class="close close-alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button>
       {{successMessage}}
     </div>
     <div class="alert alert-success hidden" :class="{ 'hidden': failMessage.length === 0 }">
-      <button v-on:click="dismissMessages" type="button" class="close close-alert"
-        aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <button v-on:click="dismissMessages" type="button" class="close close-alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button>
       {{failMessage}}
     </div>
     <div class="row">
@@ -34,51 +34,12 @@
       <div class="col-sm-7">{{campaign.passphrase}}</div>
     </div>
     <hr>
-    <table class="table">
-      <caption>Coaches</caption>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr is="coach" v-for="coach in coaches"
-          :coach="coach"
-          :editing="false"
-          :show-cancel="true"
-          :save="updateCoach">
-        </tr>
-        <tr is="coach"
-          :coach="newCoach"
-          :editing="true"
-          :show-cancel="false"
-          :save="addCoach">
-        </tr>
-      </tbody>
-    </table>
-    <div class="modal fade" id="modalCampaign" tabindex="-1" role="dialog" aria-labelledby="modalCampaign">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Campaign</h4>
-          </div>
-          <div class="modal-body">
-            <div class="alert alert-warning hidden">
-              {{failMessage}}
-            </div>
-            <form @submit.prevent="update()">
-              <campaign-editor
-                :campaign="campaign"
-                :cancel-edit="cancelEdit">
-              </campaign-editor>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    <coaches :coaches="coaches" : campaign-id="campaign._id"></coaches>
+    <campaign-editor
+      :campaign="campaign"
+      :cancel-edit="cancelEdit"
+      :message="failMessage">
+    </campaign-editor>
   </div>
 </template>
 
@@ -86,10 +47,13 @@
 import {store} from '../store.js';
 import {bl} from '../store.js';
 import CampaignEditor from './CampaignEditor.vue';
-import Coach from './Coach.vue';
+import Coaches from './Coaches.vue';
 
 export default {
-  components: { CampaignEditor, Coach },
+  components: {
+    CampaignEditor,
+    Coaches
+  },
   data() {
     return {
       user: store.user,
@@ -143,30 +107,6 @@ export default {
         }, (response) => {
           vm.failMessage = store.defaultError;
         });
-
-    },
-    addCoach: function() {
-      var vm = this;
-      var coach = bl.clone(this.newCoach);
-      coach.campaign_id = this.campaign._id;
-
-      this.$http.post(store.api + '/api/coaches', coach)
-        .then((response) => {
-          if(response.status === 201) {
-            vm.successMessage = "Coach " + coach.name + " added.";
-            vm.coaches.push(coach);
-            this.newCoach.name = '';
-            this.newCoach.email = '';
-          } else {
-            vm.failMessage = response.message;
-          }
-        }, (response) => {
-          vm.failMessage = store.defaultError;
-        });
-
-    },
-    updateCoach: {
-
     },
     dismissMessages: function() {
       this.successMessage = '';

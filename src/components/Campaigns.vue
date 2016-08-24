@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-show="!editing" transition="expand">
+    <div transition="expand">
       <div v-for="campaign in campaigns" v-link="{ name: 'campaign', params: { campaign: campaign.title }}">
         {{campaign.title}}
       </div>
@@ -9,20 +9,11 @@
       </div>
       <button @click="newCampaign" class="btn btn-primary" type="button">Start a new campaign</button>
     </div>
-    <div v-show="editing" transition="expand">
-      <form @submit.prevent="insert()" class="form-horizontal">
-        <campaign-editor 
-          :campaign="campaign" 
-          :editing="true">
-        </campaign-editor>
-        <div class="form-group">
-          <div class="col-sm-9 col-sm-offset-3">
-            <button @click="cancelEdit()" type="button" class="btn btn-default">Cancel</button>
-            <button type="submit" class="btn btn-primary">Save</button>
-          </div>
-        </div>
-      </form>
-    </div>
+    <campaign-editor
+      :campaign="campaign"
+      :cancel-edit="cancelEdit"
+      :message="failMessage">
+    </campaign-editor>
   </div>
 </template>
 
@@ -35,7 +26,6 @@ export default {
   data() {
     return {
       campaigns: [],
-      editing: false,
       campaign: {
         title: '',
         location: '',
@@ -56,16 +46,16 @@ export default {
         });
     },
     newCampaign: function() {
-      this.editing = true;
+      $('#modalCampaign').modal('show');
     },
     cancelEdit: function() {
-      this.editing = false;
+      $('#modalCampaign').modal('hide');
     },
     insert: function() {
       this.campaign.coaches.push(store.user.name);
       this.campaign.longshanks = store.user.name;
       var request = this.campaign;
-      
+
       var fetch = this.fetchCampaigns;
       this.$http.post(store.api + '/api/campaigns', request)
         .then((response) => {
