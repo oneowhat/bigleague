@@ -23,13 +23,21 @@
       <tr is="coach" v-for="coach in coaches"
         :coach="coach"
         :editing="false"
-        :show-cancel="true"
         :save="updateCoach">
       </tr>
+      <tr v-show="!showNew">
+        <td></td>
+        <td></td>
+        <td>
+          <a @click="add()" href="javascript:;">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </a>
+        </td>
+      </tr>
       <tr is="coach"
+        v-show="showNew"
         :coach="newCoach"
         :editing="true"
-        :show-cancel="false"
         :save="addCoach">
       </tr>
     </tbody>
@@ -56,12 +64,16 @@ export default {
         confirmed: false,
         user_id: {}
       },
+      showNew: false,
       failMessage: '',
       successMessage: ''
     }
   },
   props: ['coaches', 'campaignId'],
   methods: {
+    add: function() {
+      this.showNew = true;
+    },
     addCoach: function() {
       var vm = this;
       var coach = bl.clone(this.newCoach);
@@ -73,7 +85,7 @@ export default {
             vm.successMessage = "Coach " + coach.name + " added.";
             vm.coaches.push(coach);
             this.newCoach.name = '';
-            this.newCoach.email = '';
+            this.newCoach.guild = '';
           } else {
             vm.failMessage = response.message;
           }

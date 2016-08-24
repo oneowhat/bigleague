@@ -71,4 +71,8 @@ body {
   opacity: 0;
 }
 
+.bl-modal-body {
+  margin: 0 20px 0 20px;
+}
+
 </style>

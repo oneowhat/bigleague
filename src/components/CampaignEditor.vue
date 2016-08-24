@@ -7,7 +7,7 @@
           <span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Campaign</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body bl-modal-body">
         <div class="alert alert-warning hidden">
           {{message}}
         </div>
@@ -24,6 +24,7 @@
             <label for="passphrase" class="control-label">Coach pass phrase</label>
             <input v-model="campaign.passphrase" type="text" placeholder="Coach pass phrase" class="form-control" />
           </div>
+          <br />
           <div class="form-group text-center">
             <button @click="cancelEdit" type="button" class="btn btn-default">Cancel</button>
             <button type="submit" class="btn btn-primary">Save</button>
