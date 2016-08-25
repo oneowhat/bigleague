@@ -33,12 +33,35 @@
       </div>
       <div class="col-sm-7">{{campaign.passphrase}}</div>
     </div>
-    <hr>
-    <coaches :coaches="coaches" : campaign-id="campaign._id"></coaches>
+    <ul class="nav nav-tabs">
+      <li @click="setTab('coaches')" :class="{ 'active': activeTab === 'coaches' }">
+        <a href="javascript:;">Coaches</a>
+      </li>
+      <li @click="setTab('fixtures')" v-show="campaign.initialized" :class="{ 'active': activeTab === 'fixtures' }">
+        <a href="javascript:;">This Weeks Fixtures</a>
+      </li>
+      <li @click="setTab('history')" v-show="campaign.initialized" :class="{ 'active': activeTab === 'history' }">
+        <a href="javascript:;">Fixture History</a>
+      </li>
+    </ul>
+    <coaches
+      v-show="activeTab === 'coaches'"
+      :coaches="coaches"
+      :campaign="campaign">
+    </coaches>
+
+    <div v-show="!campaign.initialized" class="row">
+      <div class="col-sm-12 text-center">
+        <button @click="addSchedule()" type="button" class="btn btn-primary"
+          :disabled="!enableSchedule">Create League Schedule</button>
+      </div>
+    </div>
+
     <campaign-editor
       :campaign="campaign"
       :cancel-edit="cancelEdit"
-      :message="failMessage">
+      :message="failMessage"
+      :save="save">
     </campaign-editor>
   </div>
 </template>
@@ -57,21 +80,28 @@ export default {
   data() {
     return {
       user: store.user,
-      campaign: {},
+      campaign: {
+        initialized: false
+      },
       coaches: [],
       newCoach: {
         name: '',
         email: '',
         confirmed: false,
-        user_id: {}
+        user_id: ''
       },
       successMessage: '',
-      failMessage: ''
+      failMessage: '',
+      activeTab: 'coaches'
     }
   },
   ready() {
     this.fetchCampaign();
-    this.fetchCoaches();
+  },
+  computed: {
+    enableSchedule: function() {
+      return !this.campaign.initialized && this.coaches.length >= 8;
+    }
   },
   methods: {
     fetchCampaign: function() {
@@ -80,12 +110,12 @@ export default {
       this.$http.get(store.api + '/api/campaign/' + campaignName)
         .then((response) => {
           this.campaign = response.json().campaign;
+          this.fetchCoaches();
         });
     },
     fetchCoaches: function() {
-      var campaignName = this.$route.params.campaign;
       var vm = this;
-      this.$http.get(store.api + '/api/coaches/' + campaignName)
+      this.$http.get(store.api + '/api/coaches/' + this.campaign._id)
         .then((response) => {
           this.coaches = response.json();
         });
@@ -96,13 +126,14 @@ export default {
     cancelEdit: function() {
       $('#modalCampaign').modal('hide');
     },
-    update: function() {
+    save: function() {
       var vm = this;
       this.$http.put(store.api + '/api/campaigns', this.campaign)
         .then((response) => {
           if(response.status === 200) {
             vm.successMessage = "Campaign updated."
             vm.editing = false;
+            $('#modalCampaign').modal('hide');
           }
         }, (response) => {
           vm.failMessage = store.defaultError;
@@ -111,6 +142,9 @@ export default {
     dismissMessages: function() {
       this.successMessage = '';
       this.failMessage = '';
+    },
+    setTab: function(tab) {
+      this.activeTab = tab;
     }
   }
 };

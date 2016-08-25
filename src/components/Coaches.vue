@@ -11,7 +11,6 @@
     {{failMessage}}
   </div>
   <table class="table">
-    <caption>Coaches</caption>
     <thead>
       <tr>
         <th>Name</th>
@@ -62,14 +61,15 @@ export default {
         email: '',
         guild: '',
         confirmed: false,
-        user_id: {}
+        user_id: {},
+        campaign_id: ''
       },
       showNew: false,
       failMessage: '',
       successMessage: ''
     }
   },
-  props: ['coaches', 'campaignId'],
+  props: ['coaches', 'campaign'],
   methods: {
     add: function() {
       this.showNew = true;
@@ -77,7 +77,7 @@ export default {
     addCoach: function() {
       var vm = this;
       var coach = bl.clone(this.newCoach);
-      coach.campaign_id = this.campaignId;
+      coach.campaign_id = this.campaign._id;
 
       this.$http.post(store.api + '/api/coaches', coach)
         .then((response) => {

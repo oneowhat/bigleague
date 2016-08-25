@@ -7,7 +7,7 @@ function setAuthToken(user) {
   store.user.token = user.token;
   store.user.admin = user.admin;
   store.user.authenticated = true;
-  
+
   localStorage.setItem('bluser', JSON.stringify(store.user));
 }
 
@@ -25,7 +25,7 @@ exports.getAuthToken = function() {
   return '';
 };
 
-exports.checkAuth = function() {
+exports.init = function() {
   var user = localStorage.getItem('bluser');
   if(user) {
     user = JSON.parse(user);

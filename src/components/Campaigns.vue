@@ -12,7 +12,8 @@
     <campaign-editor
       :campaign="campaign"
       :cancel-edit="cancelEdit"
-      :message="failMessage">
+      :message="failMessage"
+      :save="save">
     </campaign-editor>
   </div>
 </template>
@@ -31,7 +32,8 @@ export default {
         location: '',
         passphrase: '',
         longshanks: store.user.name,
-        coaches: []
+        coaches: [],
+        weeks: []
       }
     }
   },
@@ -51,8 +53,7 @@ export default {
     cancelEdit: function() {
       $('#modalCampaign').modal('hide');
     },
-    insert: function() {
-      this.campaign.coaches.push(store.user.name);
+    save: function() {
       this.campaign.longshanks = store.user.name;
       var request = this.campaign;
 
@@ -61,6 +62,7 @@ export default {
         .then((response) => {
           if (response.status === 201) {
             this.campaigns.push(request);
+            $('#modalCampaign').modal('hide');
           }
         });
     }

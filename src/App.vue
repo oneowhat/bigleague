@@ -18,7 +18,7 @@ export default {
     MainNav
   },
   ready() {
-    auth.checkAuth();
+    auth.init();
   }
 };
 </script>
@@ -30,7 +30,7 @@ html {
 
 body {
   height: 100%;
-  background-image: url(./assets/Steamforged.jpg);
+  background: url(./assets/Steamforged.jpg) repeat-y center top;
 }
 
 #app {
