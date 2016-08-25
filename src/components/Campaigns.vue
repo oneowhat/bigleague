@@ -1,9 +1,21 @@
 <template>
   <div>
     <div transition="expand">
-      <div v-for="campaign in campaigns" v-link="{ name: 'campaign', params: { campaign: campaign.title }}">
-        {{campaign.title}}
-      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Your Campaigns</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="campaign in campaigns">
+            <td>
+              <a v-link="{ name: 'campaign', params: { campaign: campaign.title }}">{{campaign.title}}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <div :class="{ 'hidden': campaigns.length > 0 }" class="alert alert-info hidden">
         No campaigns yet, start one!
       </div>
