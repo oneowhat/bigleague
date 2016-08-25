@@ -33,7 +33,7 @@ export default {
         passphrase: '',
         longshanks: store.user.name,
         coaches: [],
-        weeks: []
+        initialized: false
       }
     }
   },
