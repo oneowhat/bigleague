@@ -11,7 +11,7 @@
         <option v-for="guild in guilds" :value="guild.name">{{guild.name}}</option>
       </select>
     </td>
-    <td class="actions">
+    <td class="actions text-right">
       <button v-show="!editing" @click="edit()" type="button" class="btn btn-default">Edit</button>
       <button v-show="editing && showCancel" @click="cancel()" type="button" class="btn btn-default">Cancel</button>
       <button v-show="editing" @click="save(coach, cancel)" :disabled="!enableSave" type="button" class="btn btn-primary">Save</button>

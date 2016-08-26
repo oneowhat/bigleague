@@ -42,11 +42,29 @@ function generateSchedule(campaign, coaches) {
     rounds[j] = []; // create inner match array for round j
     for (var i = 0; i < n / 2; i += 1) {
       if (pairs[i] !== DUMMY && pairs[n - 1 - i] !== DUMMY) {
-        rounds[j].push([pairs[i], pairs[n - 1 - i]]); // insert pair as a match
+        rounds[j].push(newPairing(pairs[i], pairs[n - 1 - i]));
+        //rounds[j].push([pairs[i], pairs[n - 1 - i]]); // insert pair as a match
       }
     }
     pairs.splice(1, 0, pairs.pop()); // permutate for next round
   }
 
   return rounds;
+}
+
+function newPairing(coach_one_id, coach_two_id) {
+  return {
+    coach_one: newCoachEntry(coach_one_id),
+    coach_two: newCoachEntry(coach_two_id)
+  }
+}
+
+function newCoachEntry(id) {
+  return {
+    id: id,
+    score: 0,
+    league_points: 0,
+    campaign_points: 0,
+    favours: 0
+  }
 }

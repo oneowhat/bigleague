@@ -30,6 +30,15 @@ export var store = {
         { name: 'Venin' },
         { name: 'Veteran Katalyst' },
         { name: 'Vitriol' }
+      ],
+      plots: [
+        { name: 'Hidden Knowledge' },
+        { name: 'Lead to Gold' },
+        { name: 'Mixology' },
+        { name: 'Recipe for Success' },
+        { name: 'Smoke and Mirrors' },
+        { name: 'Blindingly Obvious' },
+        { name: 'Checking for Blood' }
       ]
     },
     {
@@ -51,6 +60,15 @@ export var store = {
         { name: 'Stave' },
         { name: 'Stoker' },
         { name: 'Veteran Spigot' }
+      ],
+      plots: [
+        { name: 'Off-Kilter' },
+        { name: 'Down and Out' },
+        { name: 'Bad Pint' },
+        { name: 'Over the Line' },
+        { name: 'All Fall Down' },
+        { name: 'Feeling the Heat' },
+        { name: 'Remembering the Old Grumpy Cat' }
       ]
     },
     {
@@ -72,6 +90,15 @@ export var store = {
         { name: 'Shank' },
         { name: 'Tenderizer' },
         { name: 'Veteran Brisket' }
+      ],
+      plots: [
+        { name: 'Hangry?' },
+        { name: 'Slick with Blood' },
+        { name: 'Leaving the Boot In...' },
+        { name: 'Tough Meat' },
+        { name: 'Bone Crushing Tackle' },
+        { name: 'In Erskirii, the Hook Suffer You' },
+        { name: 'Ye Olde Pain Train' }
       ]
     },
     {
@@ -93,6 +120,15 @@ export var store = {
         { name: 'Salvo' },
         { name: 'Velocity' },
         { name: 'Veteran Velocity' }
+      ],
+      plots: [
+        { name: 'Spring-Loaded' },
+        { name: 'Creation/Destruction' },
+        { name: 'Synchronicity' },
+        { name: 'Bolt Action' },
+        { name: 'All ABout the Base' },
+        { name: 'Tickets to the Gun Show' },
+        { name: 'Mokojin' }
       ]
     },
     {
@@ -123,6 +159,15 @@ export var store = {
         { name: 'Sakana' },
         { name: 'Siren' },
         { name: 'Veteran Siren' }
+      ],
+      plots: [
+        { name: 'Sea Breeze' },
+        { name: 'Catch of the Day' },
+        { name: 'Baiting Up' },
+        { name: 'Chumming the Water' },
+        { name: 'Showboating' },
+        { name: 'Popular' },
+        { name: 'Slippery Fish' }
       ]
     },
     {
@@ -141,6 +186,15 @@ export var store = {
         { name: 'Jaecar' },
         { name: 'Seenah' },
         { name: 'Zarola' }
+      ],
+      plots: [
+        { name: 'Favour of the Sun Father' },
+        { name: 'Hit the Mark' },
+        { name: 'Swift as Shadows' },
+        { name: 'Bear Foot Training' },
+        { name: 'Rascally Rabbit' },
+        { name: 'Traps, Traps Everywhere' },
+        { name: 'And His Name Is...' }
       ]
     },
     {
@@ -162,6 +216,15 @@ export var store = {
         { name: 'Mallet' },
         { name: 'Tower' },
         { name: 'Veteran Harmony' },
+      ],
+      plots: [
+        { name: 'Bonded' },
+        { name: 'Building Play' },
+        { name: 'Laying the Foundation' },
+        { name: 'Hunker Down' },
+        { name: 'Rock of Ages' },
+        { name: 'Distant Friends' },
+        { name: 'Sister Act' }
       ]
     },
     {
@@ -183,6 +246,15 @@ export var store = {
         { name: 'Graves' },
         { name: 'Silence' },
         { name: 'Veteran Graves' },
+      ],
+      plots: [
+        { name: 'Shroud' },
+        { name: 'Angry Dead' },
+        { name: 'Paying Respects' },
+        { name: 'Unsettled Debts' },
+        { name: 'Deathly Pallor' },
+        { name: 'Bella Tricks' },
+        { name: 'Room for Two' }
       ]
     },
     {
@@ -208,9 +280,40 @@ export var store = {
         { name: 'Mist', selective: ["Alchemist's", "Mason's", "Mortician's"] },
         { name: 'Rage', selective: ["Brewer's", "Butcher's", "Engineer's", "Mortician's"] },
         { name: 'Snakeskin', selective: ["Alchemist's", "Fisherman's", "Mason's"] }
+      ],
+      plots: [
+        { name: 'Show Me the Money!' },
+        { name: 'One for the Money' },
+        { name: 'In the Small Print' },
+        { name: 'Payday' },
+        { name: 'Going Rogue' },
+        { name: 'Decimated' },
+        { name: 'Route One' }
       ]
     }
   ],
+  campaignPlots: {
+    common: [
+      { name: 'The Beautiful Game' },
+      { name: 'Winning Ugly' },
+      { name: 'Defensive Drills' },
+      { name: 'Double Down' },
+      { name: 'One With the Left, One With the Right' },
+      { name: 'Two Footed Tackle' },
+      { name: 'Starting From the Back' },
+      { name: 'One for the Crowd' },
+      { name: 'Statement of Intent' },
+      { name: 'It\'s Unbelievable Geoff!' }
+    ],
+    rare: [
+      { name: 'Homework Done' },
+      { name: 'Blind Eye' },
+      { name: 'Poisoned Chalice' },
+      { name: 'Jumping the Whistle' },
+      { name: 'He Did What!?' },
+      { name: 'From the Half Way Line' }
+    ]
+  },
   defaultError: 'Something went wrong :(',
   genders: [
     'Female',

@@ -45,7 +45,8 @@ export default {
         passphrase: '',
         longshanks: store.user.name,
         coaches: [],
-        rounds: []
+        rounds: [],
+        round: -1
       }
     }
   },

@@ -37,11 +37,8 @@
       <li @click="setTab('coaches')" :class="{ 'active': activeTab === 'coaches' }">
         <a href="javascript:;">Coaches</a>
       </li>
-      <li @click="setTab('matches')" v-show="initialized" :class="{ 'active': activeTab === 'matches' }">
-        <a href="javascript:;">This Weeks Matches</a>
-      </li>
-      <li @click="setTab('history')" v-show="initialized" :class="{ 'active': activeTab === 'history' }">
-        <a href="javascript:;">Match History</a>
+      <li @click="setTab('schedule')" v-show="initialized" :class="{ 'active': activeTab === 'schedule' }">
+        <a href="javascript:;">Schedule</a>
       </li>
     </ul>
     <coaches
@@ -49,6 +46,14 @@
       :coaches="coaches"
       :campaign="campaign">
     </coaches>
+    <div v-show="activeTab === 'schedule'">
+      <br>
+      <schedule-list
+        :campaign="campaign"
+        :coaches="coaches",
+        :round="campaign.round">
+      </schedule-list>
+    </div>
 
     <div v-show="!initialized" class="row">
       <div class="col-sm-12 text-center">
@@ -71,16 +76,19 @@ import {store} from '../store.js';
 import {bl} from '../store.js';
 import CampaignEditor from './CampaignEditor.vue';
 import Coaches from './Coaches.vue';
+import ScheduleList from './ScheduleList.vue';
 
 export default {
   components: {
     CampaignEditor,
-    Coaches
+    Coaches,
+    ScheduleList
   },
   data() {
     return {
       user: store.user,
       campaign: {
+        round: -1,
         rounds: []
       },
       coaches: [],

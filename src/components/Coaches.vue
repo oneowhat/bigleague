@@ -22,6 +22,7 @@
       <tr is="coach-editor" v-for="coach in coaches"
         :coach="coach"
         :editing="false"
+        :show-cancel="true"
         :save="updateCoach">
       </tr>
       <tr v-show="!showNew">
@@ -33,10 +34,11 @@
           </a>
         </td>
       </tr>
-      <tr is="coach"
+      <tr is="coach-editor"
         v-show="showNew"
         :coach="newCoach"
         :editing="true"
+        :show-cancel="false"
         :save="addCoach">
       </tr>
     </tbody>
@@ -62,7 +64,11 @@ export default {
         guild: '',
         confirmed: false,
         user_id: {},
-        campaign_id: ''
+        campaign_id: '',
+        league_points: 0,
+        campaign_points: 0,
+        favours: 0,
+        guild_plots: []
       },
       showNew: false,
       failMessage: '',

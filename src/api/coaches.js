@@ -40,7 +40,10 @@ exports.update = function(req, res, next) {
 				name: coach.name,
 				guild: coach.guild,
 				email: coach.email,
-				confirmed: coach.confirmed
+				confirmed: coach.confirmed,
+		    league_points: coach.league_points,
+		    campaign_points: coach.campaign_points,
+		    favours: coach.favours
 			}
 		}
 	}, function(err, doc, lastError) {
