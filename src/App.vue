@@ -20,7 +20,7 @@ export default {
     MainNav
   },
   ready() {
-    auth.checkAuth();
+    auth.init();
   }
 };
 </script>
@@ -32,7 +32,7 @@ html {
 
 body {
   height: 100%;
-  background-image: url(./assets/Steamforged.jpg);
+  background: url(./assets/Steamforged.jpg) repeat-y center top;
 }
 
 #app {
@@ -48,7 +48,7 @@ body {
 
 .main {
   margin-top: -20px;
-  padding: 20px 0 0 40px;
+  padding: 20px 40px 0 40px;
   height: 100%;
   background-color: white;
 }
@@ -71,6 +71,10 @@ body {
   height: 0;
   padding: 0 10px;
   opacity: 0;
+}
+
+.bl-modal-body {
+  margin: 0 20px 0 20px;
 }
 
 </style>

@@ -1,52 +1,68 @@
 <template>
   <div>
     <div class="alert alert-success hidden" :class="{ 'hidden': successMessage.length === 0 }">
-      <button v-on:click="dismissMessages" type="button" class="close close-alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <button v-on:click="dismissMessages" type="button" class="close close-alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button>
       {{successMessage}}
-    </div> 
+    </div>
     <div class="alert alert-success hidden" :class="{ 'hidden': failMessage.length === 0 }">
-      <button v-on:click="dismissMessages" type="button" class="close close-alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <button v-on:click="dismissMessages" type="button" class="close close-alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button>
       {{failMessage}}
-    </div> 
-    <form @submit.prevent="update()" class="form-horizontal">
-      <campaign-editor 
-        :campaign="campaign" 
-        :editing.sync="editing">
-      </campaign-editor>
-      <div class="form-group">
-        <div v-show="editing" class="col-sm-9 col-sm-offset-3">
-          <button @click="cancelEdit()" type="button" class="btn btn-default">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-        <div v-show="!editing" class="col-sm-9 col-sm-offset-3">
+    </div>
+    <div class="row">
+      <div class="col-sm-5 text-right">
+        <label class="control-label">Title</label>
+      </div>
+      <div class="col-sm-4">{{campaign.title}}</div>
+      <div class="col-sm-3">
+        <div>
           <button @click="edit()" type="button" class="btn btn-default">Edit</button>
         </div>
       </div>
-    </form>
-    <table class="table">
-      <caption>Coaches</caption>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr is="coach" v-for="coach in coaches" 
-          :coach="coach"
-          :editing="false"
-          :show-cancel="true">
-        </tr>
-        <tr is="coach"
-          :coach="newCoach"
-          :editing="true"
-          :show-cancel="false"
-          :save="addCoach">
-        </tr>
-      </tbody>
-    </table>
-    {{campaign|json}}
+    </div>
+    <div class="row">
+      <div class="col-sm-5 text-right">
+        <label class="control-label">Location</label>
+      </div>
+      <div class="col-sm-7">{{campaign.location}}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5 text-right">
+        <label class="control-label">Coach pass phrase</label>
+      </div>
+      <div class="col-sm-7">{{campaign.passphrase}}</div>
+    </div>
+    <ul class="nav nav-tabs">
+      <li @click="setTab('coaches')" :class="{ 'active': activeTab === 'coaches' }">
+        <a href="javascript:;">Coaches</a>
+      </li>
+      <li @click="setTab('fixtures')" v-show="campaign.initialized" :class="{ 'active': activeTab === 'fixtures' }">
+        <a href="javascript:;">This Weeks Fixtures</a>
+      </li>
+      <li @click="setTab('history')" v-show="campaign.initialized" :class="{ 'active': activeTab === 'history' }">
+        <a href="javascript:;">Fixture History</a>
+      </li>
+    </ul>
+    <coaches
+      v-show="activeTab === 'coaches'"
+      :coaches="coaches"
+      :campaign="campaign">
+    </coaches>
+
+    <div v-show="!campaign.initialized" class="row">
+      <div class="col-sm-12 text-center">
+        <button @click="addSchedule()" type="button" class="btn btn-primary"
+          :disabled="!enableSchedule">Create League Schedule</button>
+      </div>
+    </div>
+
+    <campaign-editor
+      :campaign="campaign"
+      :cancel-edit="cancelEdit"
+      :message="failMessage"
+      :save="save">
+    </campaign-editor>
   </div>
 </template>
 
@@ -54,27 +70,38 @@
 import {store} from '../store.js';
 import {bl} from '../store.js';
 import CampaignEditor from './CampaignEditor.vue';
-import Coach from './Coach.vue';
-  
+import Coaches from './Coaches.vue';
+
 export default {
-  components: { CampaignEditor, Coach },
+  components: {
+    CampaignEditor,
+    Coaches
+  },
   data() {
     return {
       user: store.user,
-      campaign: {},
+      campaign: {
+        initialized: false
+      },
       coaches: [],
       newCoach: {
         name: '',
-        email: ''
+        email: '',
+        confirmed: false,
+        user_id: ''
       },
-      editing: false,
       successMessage: '',
-      failMessage: ''
+      failMessage: '',
+      activeTab: 'coaches'
     }
   },
   ready() {
     this.fetchCampaign();
-    this.fetchCoaches();
+  },
+  computed: {
+    enableSchedule: function() {
+      return !this.campaign.initialized && this.coaches.length >= 8;
+    }
   },
   methods: {
     fetchCampaign: function() {
@@ -83,61 +110,41 @@ export default {
       this.$http.get(store.api + '/api/campaign/' + campaignName)
         .then((response) => {
           this.campaign = response.json().campaign;
+          this.fetchCoaches();
         });
     },
     fetchCoaches: function() {
-      var campaignName = this.$route.params.campaign;
       var vm = this;
-      this.$http.get(store.api + '/api/coaches/' + campaignName)
+      this.$http.get(store.api + '/api/coaches/' + this.campaign._id)
         .then((response) => {
           this.coaches = response.json();
         });
     },
     edit: function() {
-      this.editing = true;
+      $('#modalCampaign').modal('show');
     },
     cancelEdit: function() {
-      this.editing = false;
+      $('#modalCampaign').modal('hide');
     },
-    update: function() {
-    
+    save: function() {
       var vm = this;
-      
       this.$http.put(store.api + '/api/campaigns', this.campaign)
         .then((response) => {
           if(response.status === 200) {
             vm.successMessage = "Campaign updated."
             vm.editing = false;
+            $('#modalCampaign').modal('hide');
           }
         }, (response) => {
           vm.failMessage = store.defaultError;
         });
-        
-    },
-    addCoach: function() {
-    
-      var vm = this;
-      var coach = bl.clone(this.newCoach);
-      coach.campaign_id = this.campaign._id;
-      
-      this.$http.post(store.api + '/api/coaches', coach)
-        .then((response) => {
-          if(response.status === 201) {
-            vm.successMessage = "Coach " + coach.name + " added.";
-            vm.coaches.push(coach);
-            this.newCoach.name = '';
-            this.newCoach.email = '';
-          } else {
-            vm.failMessage = response.message;
-          }
-        }, (response) => {
-          failMessage = store.defaultError;
-        });
-        
     },
     dismissMessages: function() {
       this.successMessage = '';
       this.failMessage = '';
+    },
+    setTab: function(tab) {
+      this.activeTab = tab;
     }
   }
 };
@@ -145,5 +152,5 @@ export default {
 </script>
 
 <style scoped>
-  
+
 </style>

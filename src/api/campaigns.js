@@ -41,9 +41,8 @@ exports.update = function(req, res, next) {
     update: {
       $set: { 
         title: campaign.title, 
-        acceptJoinRequests: campaign.acceptJoinRequests,
         location: campaign.location,
-        joinCode: campaign.joinCode 
+        passphrase: campaign.passphrase 
       }
     }
   }, function(err, doc, lastError) {
