@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr is="coach" v-for="coach in coaches"
+      <tr is="coach-editor" v-for="coach in coaches"
         :coach="coach"
         :editing="false"
         :save="updateCoach">
@@ -48,11 +48,11 @@
 <script>
 import {store} from '../store.js';
 import {bl} from '../store.js';
-import Coach from './Coach.vue';
+import CoachEditor from './CoachEditor.vue';
 
 export default {
   components: {
-    Coach
+    CoachEditor
   },
   data() {
     return {
