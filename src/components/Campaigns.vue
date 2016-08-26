@@ -45,12 +45,17 @@ export default {
         passphrase: '',
         longshanks: store.user.name,
         coaches: [],
-        initialized: false
+        rounds: []
       }
     }
   },
   ready() {
     this.fetchCampaigns();
+  },
+  computed: {
+    initialized: function() {
+      return this.campaign.rounds.length > 0;
+    }
   },
   methods: {
     fetchCampaigns: function() {

@@ -11,8 +11,8 @@ export var store = {
     authenticated: false
   },
   guilds: [
-    { 
-      name: "Alchemist's", 
+    {
+      name: "Alchemist's",
       active: true,
       captains: [
         { name: 'Midas' },
@@ -33,8 +33,8 @@ export var store = {
       ]
     },
     {
-      name: "Brewer's", 
-      active: true, 
+      name: "Brewer's",
+      active: true,
       captains: [
         { name: 'Esters' },
         { name: 'Tapper' }
@@ -53,8 +53,8 @@ export var store = {
         { name: 'Veteran Spigot' }
       ]
     },
-    { 
-      name: "Butcher's", 
+    {
+      name: "Butcher's",
       active: true,
       captains: [
         { name: 'Fillet' },
@@ -74,8 +74,8 @@ export var store = {
         { name: 'Veteran Brisket' }
       ]
     },
-    { 
-      name: "Engineer's", 
+    {
+      name: "Engineer's",
       active: true,
       captains: [
         { name: 'Ballista' },
@@ -95,8 +95,8 @@ export var store = {
         { name: 'Veteran Velocity' }
       ]
     },
-    { 
-      name: "Farmer's", 
+    {
+      name: "Farmer's",
       active: false,
       captains: [],
       mascots: [],
@@ -104,7 +104,7 @@ export var store = {
         { name: 'Tater' }
       ]
     },
-    { 
+    {
       name: "Fisherman's",
       active: true,
       captains: [
@@ -125,8 +125,8 @@ export var store = {
         { name: 'Veteran Siren' }
       ]
     },
-    { 
-      name: "Hunter's", 
+    {
+      name: "Hunter's",
       active: true,
       captains: [
         { name: 'Theron' }
@@ -141,10 +141,10 @@ export var store = {
         { name: 'Jaecar' },
         { name: 'Seenah' },
         { name: 'Zarola' }
-      ] 
+      ]
     },
-    { 
-      name: "Mason's", 
+    {
+      name: "Mason's",
       active: true,
       captains: [
         { name: 'Hammer' },
@@ -164,8 +164,8 @@ export var store = {
         { name: 'Veteran Harmony' },
       ]
     },
-    { 
-      name: "Mortician's", 
+    {
+      name: "Mortician's",
       active: true,
       captains: [
         { name: 'Obulus' },
@@ -183,10 +183,10 @@ export var store = {
         { name: 'Graves' },
         { name: 'Silence' },
         { name: 'Veteran Graves' },
-      ] 
+      ]
     },
-    { 
-      name: "The Union", 
+    {
+      name: "The Union",
       active: true,
       captains: [
         { name: 'Blackheart' },
@@ -208,7 +208,7 @@ export var store = {
         { name: 'Mist', selective: ["Alchemist's", "Mason's", "Mortician's"] },
         { name: 'Rage', selective: ["Brewer's", "Butcher's", "Engineer's", "Mortician's"] },
         { name: 'Snakeskin', selective: ["Alchemist's", "Fisherman's", "Mason's"] }
-      ] 
+      ]
     }
   ],
   defaultError: 'Something went wrong :(',
@@ -228,7 +228,7 @@ export var store = {
 };
 
 export var bl = {
-  
+
   first: function (arr, predicate) {
     var i, l = arr.length;
     for (i = 0; i < l; i++) {
@@ -248,6 +248,5 @@ export var bl = {
 
     return copy;
   }
-  
-};
 
+};

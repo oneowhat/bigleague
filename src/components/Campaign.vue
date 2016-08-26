@@ -5,7 +5,7 @@
         <span aria-hidden="true">&times;</span></button>
       {{successMessage}}
     </div>
-    <div class="alert alert-success hidden" :class="{ 'hidden': failMessage.length === 0 }">
+    <div class="alert alert-danger hidden" :class="{ 'hidden': failMessage.length === 0 }">
       <button v-on:click="dismissMessages" type="button" class="close close-alert" aria-label="Close">
         <span aria-hidden="true">&times;</span></button>
       {{failMessage}}
@@ -37,11 +37,11 @@
       <li @click="setTab('coaches')" :class="{ 'active': activeTab === 'coaches' }">
         <a href="javascript:;">Coaches</a>
       </li>
-      <li @click="setTab('fixtures')" v-show="campaign.initialized" :class="{ 'active': activeTab === 'fixtures' }">
-        <a href="javascript:;">This Weeks Fixtures</a>
+      <li @click="setTab('matches')" v-show="initialized" :class="{ 'active': activeTab === 'matches' }">
+        <a href="javascript:;">This Weeks Matches</a>
       </li>
-      <li @click="setTab('history')" v-show="campaign.initialized" :class="{ 'active': activeTab === 'history' }">
-        <a href="javascript:;">Fixture History</a>
+      <li @click="setTab('history')" v-show="initialized" :class="{ 'active': activeTab === 'history' }">
+        <a href="javascript:;">Match History</a>
       </li>
     </ul>
     <coaches
@@ -50,7 +50,7 @@
       :campaign="campaign">
     </coaches>
 
-    <div v-show="!campaign.initialized" class="row">
+    <div v-show="!initialized" class="row">
       <div class="col-sm-12 text-center">
         <button @click="addSchedule()" type="button" class="btn btn-primary"
           :disabled="!enableSchedule">Create League Schedule</button>
@@ -81,7 +81,7 @@ export default {
     return {
       user: store.user,
       campaign: {
-        initialized: false
+        rounds: []
       },
       coaches: [],
       newCoach: {
@@ -99,8 +99,11 @@ export default {
     this.fetchCampaign();
   },
   computed: {
+    initialized: function() {
+      return this.campaign.rounds.length > 0;
+    },
     enableSchedule: function() {
-      return !this.campaign.initialized && this.coaches.length >= 8;
+      return !this.initialized && this.coaches.length >= 8;
     }
   },
   methods: {
@@ -134,6 +137,18 @@ export default {
             vm.successMessage = "Campaign updated."
             vm.editing = false;
             $('#modalCampaign').modal('hide');
+          }
+        }, (response) => {
+          vm.failMessage = store.defaultError;
+        });
+    },
+    addSchedule: function() {
+      var vm = this;
+      this.$http.post(store.api + '/api/schedule', { campaign: this.campaign._id })
+        .then((response) => {
+          if(response.status === 201) {
+            vm.campaign.rounds = response.json();
+            vm.successMessage = "Schedule created."
           }
         }, (response) => {
           vm.failMessage = store.defaultError;
