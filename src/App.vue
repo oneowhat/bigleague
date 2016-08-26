@@ -4,11 +4,13 @@
     <div class="container main">
       <router-view></router-view>
     </div>
+    <footer></footer>
   </div>
 </template>
 
 <script>
 import MainNav from './components/MainNav';
+import Footer from './components/Footer';
 import auth from './auth.js';
 import {store} from './store.js';
 
