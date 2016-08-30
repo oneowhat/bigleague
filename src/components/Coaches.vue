@@ -28,7 +28,7 @@
       <tr v-show="!showNew">
         <td></td>
         <td></td>
-        <td>
+        <td class="text-right">
           <a @click="add()" href="javascript:;">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
           </a>

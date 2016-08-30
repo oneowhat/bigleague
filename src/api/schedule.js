@@ -35,15 +35,14 @@ function generateSchedule(campaign, coaches) {
   });
 
   if (n % 2 === 1) {
-    pairs.push(DUMMY); // so we can match algorithm for even numbers
+    pairs.push(DUMMY); // factor in the 'bye'
     n += 1;
   }
   for (var j = 0; j < n - 1; j += 1) {
-    rounds[j] = []; // create inner match array for round j
+    rounds[j] = [];
     for (var i = 0; i < n / 2; i += 1) {
       if (pairs[i] !== DUMMY && pairs[n - 1 - i] !== DUMMY) {
         rounds[j].push(newPairing(pairs[i], pairs[n - 1 - i]));
-        //rounds[j].push([pairs[i], pairs[n - 1 - i]]); // insert pair as a match
       }
     }
     pairs.splice(1, 0, pairs.pop()); // permutate for next round
@@ -55,7 +54,8 @@ function generateSchedule(campaign, coaches) {
 function newPairing(coach_one_id, coach_two_id) {
   return {
     coach_one: newCoachEntry(coach_one_id),
-    coach_two: newCoachEntry(coach_two_id)
+    coach_two: newCoachEntry(coach_two_id),
+    reported_at: null
   }
 }
 

@@ -51,7 +51,7 @@
       <schedule-list
         :campaign="campaign"
         :coaches="coaches",
-        :round="campaign.round">
+        :current-round="campaign.round">
       </schedule-list>
     </div>
 
