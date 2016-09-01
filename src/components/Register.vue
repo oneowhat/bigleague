@@ -4,7 +4,7 @@
       <h2>Register</h2>
       <div class="alert alert-danger hidden" :class="{ 'hidden': !message }">
         {{message}}
-      </div> 
+      </div>
       <label for="inputName" class="sr-only">User name (what others will see)</label>
       <input v-model="name" type="text" id="inputName" class="form-control" placeholder="User name" required autofocus />
       <label for="inputEmail" class="sr-only">Email address</label>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import {store} from '../store.js';
+
 export default {
   data() {
     return {
@@ -44,6 +46,7 @@ export default {
   methods: {
     onSubmit() {
       var request = {
+        name: this.name,
         email: this.email,
         password: this.password
       };

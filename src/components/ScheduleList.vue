@@ -26,7 +26,11 @@
           <td>{{ match.coach_two.id | coachName }}</td>
           <td>{{ match | score }}</td>
           <td class="text-right">
-            <button class="btn btn-primary" :disabled="match.reported_at || !isCurrentRound">Record Match Results</button>
+            <button class="btn btn-primary"
+              :class="{ 'hidden': match.reported_at }"
+              :disabled="match.reported_at || !isCurrentRound">Record Match Results</button>
+            <button class="btn btn-default"
+              :class="{ 'hidden': !match.reported_at }">Change Match Results</button>
           </td>
         </tr>
       </tbody>
