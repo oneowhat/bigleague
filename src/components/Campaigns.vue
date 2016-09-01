@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     fetchCampaigns: function() {
-      this.$http.get(store.api + '/api/campaigns/' + store.user.name)
+      this.$http.get(store.api + '/api/campaigns/' + store.user.id)
         .then((response) => {
           this.campaigns = response.json();
         });
@@ -72,7 +72,7 @@ export default {
       $('#modalCampaign').modal('hide');
     },
     save: function() {
-      this.campaign.longshanks = store.user.name;
+      this.campaign.userId = store.user.id;
       var request = this.campaign;
 
       var fetch = this.fetchCampaigns;
