@@ -22,7 +22,7 @@
           </div>
           <div class="form-group">
             <label for="passphrase" class="control-label">Coach pass phrase</label>
-            <input v-model="campaign.passphrase" type="text" placeholder="Coach pass phrase" class="form-control" />
+            <input v-model="campaign.passPhrase" type="text" placeholder="Coach pass phrase" class="form-control" />
           </div>
           <br />
           <div class="form-group text-center">

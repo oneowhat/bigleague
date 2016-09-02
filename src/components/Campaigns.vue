@@ -42,11 +42,11 @@ export default {
       campaign: {
         title: '',
         location: '',
-        passphrase: '',
-        longshanks: store.user.name,
+        passPhrase: '',
+        userId: store.user.id,
         coaches: [],
-        rounds: [],
-        round: -1
+        rounds: [{ matches: [] }],
+        round: 0
       }
     }
   },
@@ -72,7 +72,6 @@ export default {
       $('#modalCampaign').modal('hide');
     },
     save: function() {
-      this.campaign.userId = store.user.id;
       var request = this.campaign;
 
       var fetch = this.fetchCampaigns;

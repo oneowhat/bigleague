@@ -21,9 +21,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="match in selectedRound">
-          <td>{{ match.coach_one.id | coachName }}</td>
-          <td>{{ match.coach_two.id | coachName }}</td>
+        <tr v-for="match in selectedRound.matches">
+          <td>{{ match.homeCoachId | coachName }}</td>
+          <td>{{ match.awayCoachId | coachName }}</td>
           <td>{{ match | score }}</td>
           <td class="text-right">
             <button class="btn btn-primary"
@@ -43,7 +43,7 @@ import {store} from '../store.js';
 import {bl} from '../store.js';
 
 export default {
-  props: ['campaign', 'coaches', 'currentRound'],
+  props: ['campaign', 'currentRound'],
   filters: {
     roundLabel: function(currentRound) {
       return "Round " + (currentRound + 1);
@@ -63,10 +63,14 @@ export default {
       return this.currentRound > 0;
     },
     nextEnabled: function() {
-      return this.currentRound < this.campaign.rounds.length;
+      return this.currentRound < this.campaign.rounds.length - 1;
     },
     selectedRound: function() {
-      return this.campaign.rounds[this.currentRound]
+      var round = this.campaign.rounds[this.currentRound];
+      if(!round)
+        round = { matches: [] };
+
+      return round;
     },
     isCurrentRound: function() {
       return this.currentRound === this.campaign.round;
@@ -80,8 +84,8 @@ export default {
       this.currentRound++;
     },
     coachById: function(id) {
-      return bl.first(this.coaches, function(coach) {
-        return coach._id === id;
+      return bl.first(this.campaign.coaches, function(coach) {
+        return coach.id === id;
       });
     }
   }

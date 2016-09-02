@@ -43,14 +43,12 @@
     </ul>
     <coaches
       v-show="activeTab === 'coaches'"
-      :coaches="coaches"
       :campaign="campaign">
     </coaches>
     <div v-show="activeTab === 'schedule'">
       <br>
       <schedule-list
         :campaign="campaign"
-        :coaches="coaches",
         :current-round="campaign.round">
       </schedule-list>
     </div>
@@ -61,7 +59,6 @@
           :disabled="!enableSchedule">Create League Schedule</button>
       </div>
     </div>
-
     <campaign-editor
       :campaign="campaign"
       :cancel-edit="cancelEdit"
@@ -88,10 +85,10 @@ export default {
     return {
       user: store.user,
       campaign: {
-        round: -1,
-        rounds: []
+        round: 0,
+        rounds: [{ matches: [] }],
+        coaches: []
       },
-      coaches: [],
       newCoach: {
         name: '',
         email: '',
@@ -111,7 +108,7 @@ export default {
       return this.campaign.rounds.length > 0;
     },
     enableSchedule: function() {
-      return !this.initialized && this.coaches.length >= 8;
+      return !this.initialized && this.campaign.coaches.length >= 8;
     }
   },
   methods: {
@@ -120,15 +117,7 @@ export default {
       var vm = this;
       this.$http.get(store.api + '/api/campaign/' + campaignName)
         .then((response) => {
-          this.campaign = response.json().campaign;
-          this.fetchCoaches();
-        });
-    },
-    fetchCoaches: function() {
-      var vm = this;
-      this.$http.get(store.api + '/api/coaches/' + this.campaign._id)
-        .then((response) => {
-          this.coaches = response.json();
+          this.campaign = response.json();
         });
     },
     edit: function() {
@@ -152,10 +141,10 @@ export default {
     },
     addSchedule: function() {
       var vm = this;
-      this.$http.post(store.api + '/api/schedule', { campaign: this.campaign._id })
+      this.$http.post(store.api + '/api/schedule', { campaign: this.campaign.id })
         .then((response) => {
           if(response.status === 201) {
-            vm.campaign.rounds = response.json();
+            vm.fetchCampaign();
             vm.successMessage = "Schedule created."
           }
         }, (response) => {

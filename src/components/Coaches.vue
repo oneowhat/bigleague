@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr is="coach-editor" v-for="coach in coaches"
+      <tr is="coach-editor" v-for="coach in campaign.coaches"
         :coach="coach"
         :editing="false"
         :show-cancel="true"
@@ -61,21 +61,14 @@ export default {
       newCoach: {
         name: '',
         email: '',
-        guild: '',
-        confirmed: false,
-        user_id: {},
-        campaign_id: '',
-        league_points: 0,
-        campaign_points: 0,
-        favours: 0,
-        guild_plots: []
+        guild: ''
       },
       showNew: false,
       failMessage: '',
       successMessage: ''
     }
   },
-  props: ['coaches', 'campaign'],
+  props: ['campaign'],
   methods: {
     add: function() {
       this.showNew = true;
@@ -83,15 +76,14 @@ export default {
     addCoach: function() {
       var vm = this;
       var coach = bl.clone(this.newCoach);
-      coach.campaign_id = this.campaign._id;
+      coach.campaignId = this.campaign.id;
 
       this.$http.post(store.api + '/api/coaches', coach)
         .then((response) => {
           if(response.status === 201) {
             vm.successMessage = "Coach " + coach.name + " added.";
-            vm.coaches.push(coach);
-            this.newCoach.name = '';
-            this.newCoach.guild = '';
+            vm.campaign.coaches.push(coach);
+            vm.reset();
           } else {
             vm.failMessage = response.message;
           }
@@ -114,6 +106,11 @@ export default {
         }, (response) => {
           vm.failMessage = store.defaultError;
         });
+    },
+    reset: function() {
+      this.newCoach.name = '';
+      this.newCoach.guild = '';
+      this.newCoach.email = '';
     },
     dismissMessages: function() {
       this.successMessage = '';
