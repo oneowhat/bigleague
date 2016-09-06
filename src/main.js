@@ -37,6 +37,10 @@ router.map({
     component: require('./components/Campaign.vue'),
     auth: true
   },
+  '/campaigns/:campaign/coaches/:coach': {
+    name: 'coach',
+    component: require('./components/Coach.vue')
+  },
   '/login': {
     name: 'login',
     component: require('./components/Login.vue')
