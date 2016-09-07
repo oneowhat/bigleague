@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr is="coach-editor" v-for="coach in campaign.coaches"
+      <tr is="coach-list-item" v-for="coach in campaign.coaches"
         :coach="coach"
         :editing="false"
         :show-cancel="true"
@@ -34,7 +34,7 @@
           </a>
         </td>
       </tr>
-      <tr is="coach-editor"
+      <tr is="coach-list-item"
         v-show="showNew"
         :coach="newCoach"
         :editing="true"
@@ -50,11 +50,11 @@
 <script>
 import {store} from '../store.js';
 import {bl} from '../store.js';
-import CoachEditor from './CoachEditor.vue';
+import CoachListItem from './CoachListItem.vue';
 
 export default {
   components: {
-    CoachEditor
+    CoachListItem
   },
   data() {
     return {
