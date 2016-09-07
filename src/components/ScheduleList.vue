@@ -35,7 +35,7 @@
         </tr>
       </tbody>
     </table>
-    <match-editor :match="match"></match>
+    <match-editor :match.sync="match" :coaches="campaign.coaches"></match>
   </div>
 </template>
 
@@ -61,8 +61,8 @@ export default {
       return coach ? coach.name : "";
     },
     score: function(match) {
-      return match.reported_at
-        ? match.coach_one.score + " - " + match.coach_two.score
+      return match.reportedAt
+        ? match.homeScore + " - " + match.awayScore
         : "-------";
     }
   },

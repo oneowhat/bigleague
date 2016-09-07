@@ -158,6 +158,11 @@ export default {
     setTab: function(tab) {
       this.activeTab = tab;
     }
+  },
+  events: {
+    saveCampaign: function() {
+      this.save();
+    }
   }
 };
 

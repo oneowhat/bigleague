@@ -11,7 +11,7 @@
         <div class="alert alert-warning hidden">
           {{message}}
         </div>
-        <form @submit.prevent="save()">
+        <form @submit.prevent="save">
           <div class="form-group">
             <label for="title" class="control-label">Title</label>
             <input v-model="campaign.title" type="text" placeholder="Title" class="form-control" required />
@@ -39,7 +39,12 @@
 <script>
 
 export default {
-  props: ['campaign', 'cancelEdit', 'failMessage', 'save']
+  props: ['campaign', 'cancelEdit', 'failMessage'],
+  methods: {
+    save: function() {
+      this.$dispatch('saveCampaign');
+    }
+  }
 };
 
 </script>

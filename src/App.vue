@@ -4,20 +4,21 @@
     <div class="container main">
       <router-view></router-view>
     </div>
-    <footer></footer>
+    <bl-footer></bl-footer>
   </div>
 </template>
 
 <script>
 import MainNav from './components/MainNav';
-import Footer from './components/Footer';
+import BlFooter from './components/BlFooter.vue';
 import auth from './auth.js';
 import {store} from './store.js';
 
 export default {
   replace: false,
   components: {
-    MainNav
+    MainNav,
+    BlFooter
   },
   ready() {
     auth.init();
@@ -27,7 +28,7 @@ export default {
 
 <style>
 html {
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
@@ -38,7 +39,7 @@ body {
 #app {
   color: #2c3e50;
   font-family: Source Sans Pro, Helvetica, sans-serif;
-  height: auto;
+  height: 100%;
 }
 
 #app a {
@@ -48,9 +49,10 @@ body {
 
 .main {
   margin-top: -20px;
-  padding: 20px 40px 0 40px;
-  height: 100%;
+  padding: 20px 40px 100px 40px;
   background-color: white;
+  height: 100%;
+  min-height: 100%
 }
 
 .logo {
@@ -60,6 +62,19 @@ body {
 
 .container {
   width:1000px;
+}
+
+.footer {
+  height: 60px;
+  background-color: gray;
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  color: white !important;
+}
+
+.footer a {
+  color: white !important;
 }
 
 .expand-transition {
