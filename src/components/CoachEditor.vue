@@ -26,7 +26,9 @@ export default {
   data() {
     return {
       user: store.user,
-      guilds: store.guilds
+      guilds: store.guilds.filter(function(guild) {
+        return guild.active;
+      })
     }
   },
   props: ['coach', 'editing', 'showCancel', 'save'],

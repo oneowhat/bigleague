@@ -26,23 +26,31 @@
           <td>{{ match.awayCoachId | coachName }}</td>
           <td>{{ match | score }}</td>
           <td class="text-right">
-            <button class="btn btn-primary"
+            <button @click="editMatch(match)" class="btn btn-primary"
               :class="{ 'hidden': match.reported_at }"
               :disabled="match.reported_at || !isCurrentRound">Record Match Results</button>
-            <button class="btn btn-default"
+            <button @click="editMatch(match)" class="btn btn-default"
               :class="{ 'hidden': !match.reported_at }">Change Match Results</button>
           </td>
         </tr>
       </tbody>
     </table>
+    <match-editor :match="match"></match>
   </div>
 </template>
 
 <script>
 import {store} from '../store.js';
 import {bl} from '../store.js';
+import MatchEditor from './MatchEditor.vue'
 
 export default {
+  components: { MatchEditor },
+  data() {
+    return {
+      match: {}
+    }
+  },
   props: ['campaign', 'currentRound'],
   filters: {
     roundLabel: function(currentRound) {
@@ -87,6 +95,10 @@ export default {
       return bl.first(this.campaign.coaches, function(coach) {
         return coach.id === id;
       });
+    },
+    editMatch: function(match) {
+      this.match = match;
+      $('#modalMatch').modal('show');
     }
   }
 }

@@ -4,7 +4,7 @@
       <h2>Sign in</h2>
       <div class="alert alert-danger hidden" :class="{ 'hidden': !message }">
         {{message}}
-      </div> 
+      </div>
       <label for="inputEmail" class="sr-only">Email address</label>
       <input v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus />
       <label for="inputPassword" class="sr-only">Password</label>
@@ -38,7 +38,7 @@ export default {
           var data = response.json();
           auth.login(data.token, data.user);
           router.go('/');
-        }, (response) => { 
+        }, (response) => {
           this.message = response.body;
         });
     }

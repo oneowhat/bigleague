@@ -31,7 +31,7 @@
       <div class="col-sm-5 text-right">
         <label class="control-label">Coach pass phrase</label>
       </div>
-      <div class="col-sm-7">{{campaign.passphrase}}</div>
+      <div class="col-sm-7">{{campaign.passPhrase}}</div>
     </div>
     <ul class="nav nav-tabs">
       <li @click="setTab('coaches')" :class="{ 'active': activeTab === 'coaches' }">

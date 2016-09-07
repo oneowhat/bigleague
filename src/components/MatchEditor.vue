@@ -13,16 +13,12 @@
         </div>
         <form @submit.prevent="save()">
           <div class="form-group">
-            <label for="title" class="control-label">Title</label>
-            <input v-model="campaign.title" type="text" placeholder="Title" class="form-control" required />
+            <label for="title" class="control-label">Home score</label>
+            <input v-model="match.homeScore" type="number" min="0" placeholder="Home score" class="form-control" required />
           </div>
           <div class="form-group">
-            <label for="location" class="control-label">Location</label>
-            <input v-model="campaign.location" type="text" placeholder="Location" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label for="passphrase" class="control-label">Coach pass phrase</label>
-            <input v-model="campaign.passphrase" type="text" placeholder="Coach pass phrase" class="form-control" />
+            <label for="location" class="control-label">Away score</label>
+            <input v-model="match.awayScore" type="number" min="0" placeholder="Away score" class="form-control" required />
           </div>
           <br />
           <div class="form-group text-center">
@@ -37,9 +33,26 @@
 </template>
 
 <script>
+import {bl} from '../store.js';
 
 export default {
-  props: ['match', 'cancelEdit', 'failMessage', 'save']
+  props: ['match', 'coaches', 'failMessage', 'save'],
+  computed: {
+
+  },
+  filters: {
+    coachName: function(id) {
+      var coach = bl.first(this.coaches, function(coach) {
+        return coach.id === id;
+      });
+      return coach ? coach.name : '';
+    }
+  },
+  methods: {
+    cancelEdit: function() {
+      $('#modalMatch').modal('hide');
+    }
+  }
 };
 
 </script>
