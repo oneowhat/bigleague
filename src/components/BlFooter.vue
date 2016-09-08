@@ -3,7 +3,7 @@
     <div class="container">
       <p class="text-muted">
         <div class="pull-left">
-          <a href="http://steamforged.com/">Steamforged Games</a>
+          <a href="http://steamforged.com/">Guild Ball</a>
           &nbsp;&nbsp;|&nbsp;&nbsp;
           <a href="javascript:;">Contact</a>
         </div>

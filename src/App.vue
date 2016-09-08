@@ -66,15 +66,15 @@ body {
 
 .footer {
   height: 60px;
-  background-color: gray;
+  background-color: #151515;
   width: 100%;
   bottom: 0;
   position: absolute;
-  color: white !important;
+  color: #848484 !important;
 }
 
 .footer a {
-  color: white !important;
+  color: #848484 !important;
 }
 
 .expand-transition {
