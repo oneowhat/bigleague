@@ -126,7 +126,7 @@ export default {
     cancelEdit: function() {
       $('#modalCampaign').modal('hide');
     },
-    save: function() {
+    save: function(callback) {
       var vm = this;
       this.$http.put(store.api + '/api/campaigns', this.campaign)
         .then((response) => {
@@ -134,6 +134,7 @@ export default {
             vm.successMessage = "Campaign updated."
             vm.editing = false;
             $('#modalCampaign').modal('hide');
+            if(callback) callback();
           }
         }, (response) => {
           vm.failMessage = store.defaultError;
@@ -162,6 +163,10 @@ export default {
   events: {
     saveCampaign: function() {
       this.save();
+    },
+    finalizeRound: function(callback) {
+      this.campaign.round++;
+      this.save(callback);
     }
   }
 };

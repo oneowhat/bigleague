@@ -27,14 +27,23 @@
           <td>{{ match | score }}</td>
           <td class="text-right">
             <button @click="editMatch(match)" class="btn btn-primary"
-              :class="{ 'hidden': match.reported_at }"
-              :disabled="match.reported_at || !isCurrentRound">Record Match Results</button>
+              :class="{ 'hidden': match.reportedAt }"
+              :disabled="match.reportedAt || !isCurrentRound">Record Match Results</button>
             <button @click="editMatch(match)" class="btn btn-default"
-              :class="{ 'hidden': !match.reported_at }">Change Match Results</button>
+              :class="{ 'hidden': !match.reportedAt }">Change Match Results</button>
           </td>
         </tr>
       </tbody>
     </table>
+    <br>
+    <div class="text-center">
+      <button @click="finalizeRound" type="button" class="btn btn-primary"
+        :disabled="!finalizeEnabled" :class="{ 'hidden': currentRound === campaign.rounds.length - 1 }">
+        Finalize Round</button>
+      <button @click="confirmFinalize" type="button" class="btn btn-primary"
+        :disabled="!finalizeEnabled" :class="{ 'hidden': currentRound !== campaign.rounds.length - 1 }">
+        Finalize Campaign</button>
+    </div>
     <match-editor :match.sync="match" :coaches="campaign.coaches"></match>
   </div>
 </template>
@@ -64,6 +73,10 @@ export default {
       return match.reportedAt
         ? match.homeScore + " - " + match.awayScore
         : "-------";
+    },
+    matchButtonLabel: function(match) {
+      return match.reportedAt
+        ? "Change" : "Record";
     }
   },
   computed: {
@@ -82,6 +95,15 @@ export default {
     },
     isCurrentRound: function() {
       return this.currentRound === this.campaign.round;
+    },
+    finalizeEnabled: function() {
+      var allReported = true;
+      this.selectedRound.matches.forEach(function(match) {
+        if (!match.reportedAt) {
+          allReported = false;
+        }
+      });
+      return this.isCurrentRound && allReported;
     }
   },
   methods: {
@@ -99,6 +121,15 @@ export default {
     editMatch: function(match) {
       this.match = match;
       $('#modalMatch').modal('show');
+    },
+    finalizeRound: function() {
+      this.$dispatch('finalizeRound');
+    },
+    confirmFinalize: function() {
+
+    },
+    finalizeCampaign: function() {
+
     }
   }
 }

@@ -67,6 +67,7 @@ export default {
         .then((response) => {
           if(response.status === 200) {
             $('#modalMatch').modal('hide');
+            this.match.reportedAt = new Date();
           }
         }, (response) => {
           vm.message = store.defaultError;

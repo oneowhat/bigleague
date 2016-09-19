@@ -69,7 +69,7 @@ body {
   background-color: #151515;
   width: 100%;
   bottom: 0;
-  position: absolute;
+  position: fixed;
   color: #848484 !important;
 }
 
