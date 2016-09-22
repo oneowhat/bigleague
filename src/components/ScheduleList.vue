@@ -37,27 +37,33 @@
     </table>
     <br>
     <div class="text-center">
-      <button @click="finalizeRound" type="button" class="btn btn-primary"
+      <button @click="confirmFinalizeRound" type="button" class="btn btn-primary"
         :disabled="!finalizeEnabled" :class="{ 'hidden': currentRound === campaign.rounds.length - 1 }">
         Finalize Round</button>
       <button @click="confirmFinalize" type="button" class="btn btn-primary"
         :disabled="!finalizeEnabled" :class="{ 'hidden': currentRound !== campaign.rounds.length - 1 }">
         Finalize Campaign</button>
     </div>
-    <match-editor :match.sync="match" :coaches="campaign.coaches"></match>
+    <match-editor :match.sync="match" :coaches="campaign.coaches"></match-editor>
+    <confirm-dialog :model="confirmModel"></confirm-dialog>
   </div>
 </template>
 
 <script>
 import {store} from '../store.js';
 import {bl} from '../store.js';
+import ConfirmDialog from './ConfirmDialog.vue'
 import MatchEditor from './MatchEditor.vue'
 
 export default {
-  components: { MatchEditor },
+  components: { MatchEditor, ConfirmDialog },
   data() {
     return {
-      match: {}
+      match: {},
+      confirmModel: {
+        message: "",
+        confirm: function() { }
+      }
     }
   },
   props: ['campaign', 'currentRound'],
@@ -75,8 +81,7 @@ export default {
         : "-------";
     },
     matchButtonLabel: function(match) {
-      return match.reportedAt
-        ? "Change" : "Record";
+      return match.reportedAt ? "Change" : "Record";
     }
   },
   computed: {
@@ -122,11 +127,19 @@ export default {
       this.match = match;
       $('#modalMatch').modal('show');
     },
+    confirmFinalizeRound: function() {
+      this.confirmModel.message = "Once the round is finalized you can no longer edit match data, are you sure you want to proceed?";
+      this.confirmModel.confirm = this.finalizeRound;
+      $('#modalConfirm').modal('show');
+    },
     finalizeRound: function() {
       this.$dispatch('finalizeRound');
+      $("#modalConfirm").modal('hide');
     },
     confirmFinalize: function() {
-
+      this.confirmModel.message = "Once the campaign is finalized you will no longer be able to edit any data, are you sure you want to proceed?";
+      this.confirmModel.confirm = this.finalizeCampaign;
+      $('#modalConfirm').modal('show');
     },
     finalizeCampaign: function() {
 
