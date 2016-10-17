@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td>
-      <a v-show="!editing" v-link="{ name: 'coach', params: { campaign: coach.campaignId, coach: coach.id }}">{{coach.name}}</a>
+      <router-link v-show="!editing" to="{ name: 'coach', params: { campaign: coach.campaignId, coach: coach.id }}">{{coach.name}}</router-link>
       <input v-show="editing" v-model="coach.name" type="text" class="form-control" required />
     </td>
     <td>

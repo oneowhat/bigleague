@@ -15,13 +15,13 @@ import auth from './auth.js';
 import {store} from './store.js';
 
 export default {
-  replace: false,
+  name: 'app',
   components: {
     MainNav,
     BlFooter
   },
-  ready() {
-    auth.init();
+  mounted() {
+    auth.start();
   }
 };
 </script>
@@ -77,12 +77,9 @@ body {
   color: #848484 !important;
 }
 
-.expand-transition {
+.expand-enter-active, .expand-leave-active {
   transition: all .3s ease;
   padding: 10px;
-}
-
-.expand-enter, .expand-leave {
   height: 0;
   padding: 0 10px;
   opacity: 0;

@@ -13,11 +13,11 @@
         </div>
         <form @submit.prevent="save">
           <div class="form-group">
-            <label for="title" class="control-label">{{ match.homeCoachId | coachName }} score</label>
+            <label for="title" class="control-label">{{ coachName(match.homeCoachId) }} score</label>
             <input v-model="match.homeScore" type="number" min="0" max="14" placeholder="Home score" class="form-control" required />
           </div>
           <div class="form-group">
-            <label for="location" class="control-label">{{ match.awayCoachId | coachName }} score</label>
+            <label for="location" class="control-label">{{ coachName(match.awayCoachId) }} score</label>
             <input v-model="match.awayScore" type="number" min="0" max="14" placeholder="Away score" class="form-control" required />
           </div>
           <br />
@@ -49,15 +49,13 @@ export default {
           && (this.match.homeScore >= 12 || this.match.awayScore >= 12);
     }
   },
-  filters: {
+  methods: {
     coachName: function(id) {
       var coach = bl.first(this.coaches, function(coach) {
         return coach.id === id;
       });
       return coach ? coach.name : '';
-    }
-  },
-  methods: {
+    },
     cancelEdit: function() {
       $('#modalMatch').modal('hide');
     },

@@ -25,7 +25,7 @@ exports.getAuthToken = function() {
   return '';
 };
 
-exports.init = function() {
+exports.start = function() {
   var user = localStorage.getItem('bluser');
   if(user) {
     user = JSON.parse(user);

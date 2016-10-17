@@ -28,7 +28,6 @@ export default {
   },
   methods: {
     onSubmit() {
-      var router = this.$route.router;
       var request = {
         email: this.email,
         password: this.password
@@ -37,7 +36,7 @@ export default {
         .then((response) => {
           var data = response.json();
           auth.login(data.token, data.user);
-          router.go('/');
+          this.$router.push('/');
         }, (response) => {
           this.message = response.body;
         });

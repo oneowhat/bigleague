@@ -1,26 +1,24 @@
 <template>
   <div>
-    <div transition="expand">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Your Campaigns</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="campaign in campaigns">
-            <td>
-              <a v-link="{ name: 'campaign', params: { campaign: campaign.title }}">{{campaign.title}}</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div :class="{ 'hidden': campaigns.length > 0 }" class="alert alert-info hidden">
-        No campaigns yet, start one!
-      </div>
-      <button @click="newCampaign" class="btn btn-primary" type="button">Start a new campaign</button>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Your Campaigns</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="campaign in campaigns">
+          <td>
+            <router-link :to="{ name: 'campaign', params: { campaign: campaign.title }}">{{campaign.title}}</router-link>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div :class="{ 'hidden': campaigns.length > 0 }" class="alert alert-info hidden">
+      No campaigns yet, start one!
     </div>
+    <button @click="newCampaign" class="btn btn-primary" type="button">Start a new campaign</button>
     <campaign-editor
       :campaign="campaign"
       :cancel-edit="cancelEdit"
@@ -38,6 +36,7 @@ export default {
   components: { CampaignEditor },
   data() {
     return {
+      failMessage: '',
       campaigns: [],
       campaign: {
         title: '',
@@ -50,7 +49,7 @@ export default {
       }
     }
   },
-  ready() {
+  mounted() {
     this.fetchCampaigns();
   },
   computed: {

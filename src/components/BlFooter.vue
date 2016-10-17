@@ -25,7 +25,7 @@ export default {
       year: 0
     }
   },
-  ready() {
+  mounted() {
     this.year = new Date().getFullYear();
   }
 }

@@ -2,7 +2,7 @@
 	<nav id="main-nav" class="navbar navbar-inverse">
 		<div class="container">
 	    <div class="navbar-header">
-	      <a class="navbar-brand" v-link="{ path: '/' }">Big League</a>
+	      <router-link class="navbar-brand" to="/">Big League</router-link>
 	    </div>
 	    <div class="collapse navbar-collapse">
 	     	<ul class="nav navbar-nav">
@@ -12,20 +12,20 @@
             </a>
             <ul class="dropdown-menu">
               <li v-for="guild in guilds">
-                <a v-link="{ name: 'guild', params: { guild: guild.name }}">{{guild.name}}</a>
+                <router-link :to="{ name: 'guild', params: { guild: guild.name }}">{{guild.name}}</router-link>
               </li>
             </ul>
           </li>
 	        <li v-for="tab in tabsForUser">
-						<a v-link="{ path: tab.path }">{{tab.text}}</a>
+						<router-link :to="{ path: tab.path }">{{tab.text}}</router-link>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li v-if="!authenticated">
-            <a v-link="{ path: '/login' }">Sign in</a>
+            <router-link to="/login">Sign in</router-link>
           </li>
           <li v-if="!authenticated">
-            <a v-link="{ path: '/register' }">Register</a>
+            <router-link to="/register">Register</router-link>
           </li>
           <li v-if="authenticated" class="dropdown">
             <a href="javascript:;" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -49,6 +49,7 @@ import {store} from '../store.js'
 import auth from '../auth.js';
 
 export default {
+	name: 'main-nav',
   data() {
     return {
       user: store.user,
@@ -72,7 +73,7 @@ export default {
   methods: {
     logout: function() {
       auth.logout();
-      this.$route.router.go('/login');
+      this.$route.router.push('/login');
     }
   },
 };

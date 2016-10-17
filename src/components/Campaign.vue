@@ -41,15 +41,13 @@
         <a href="javascript:;">Schedule</a>
       </li>
     </ul>
-    <coaches
-      v-show="activeTab === 'coaches'"
-      :campaign="campaign">
-    </coaches>
+    <coaches v-show="activeTab === 'coaches'" :campaign="campaign"></coaches>
     <div v-show="activeTab === 'schedule'">
       <br>
       <schedule-list
         :campaign="campaign"
-        :current-round="campaign.round">
+        :current-round="campaign.round"
+        :finalize="finalizeRound">
       </schedule-list>
     </div>
 
@@ -100,7 +98,7 @@ export default {
       activeTab: 'coaches'
     }
   },
-  ready() {
+  mounted() {
     this.fetchCampaign();
   },
   computed: {
@@ -158,9 +156,7 @@ export default {
     },
     setTab: function(tab) {
       this.activeTab = tab;
-    }
-  },
-  events: {
+    },
     finalizeRound: function(callback) {
       this.campaign.round++;
       this.save(callback);

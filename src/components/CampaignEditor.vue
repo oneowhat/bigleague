@@ -9,7 +9,7 @@
       </div>
       <div class="modal-body bl-modal-body">
         <div class="alert alert-warning hidden">
-          {{message}}
+          {{failMessage}}
         </div>
         <form @submit.prevent="save">
           <div class="form-group">

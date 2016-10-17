@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col-sm-4">
-        <button @click="previousRound()" :disabled="!previousEnabled" class="btn btn-default">< Previous Round</button>
+        <button @click="previousRound()" :disabled="!previousEnabled" class="btn btn-default"> Previous Round</button>
       </div>
       <div class="col-sm-4 text-center">
         {{currentRound | roundLabel}}
@@ -22,8 +22,8 @@
       </thead>
       <tbody>
         <tr v-for="match in selectedRound.matches">
-          <td>{{ match.homeCoachId | coachName }}</td>
-          <td>{{ match.awayCoachId | coachName }}</td>
+          <td>{{ coachName(match.homeCoachId) }}</td>
+          <td>{{ coachName(match.awayCoachId) }}</td>
           <td>{{ match | score }}</td>
           <td class="text-right">
             <button @click="editMatch(match)" class="btn btn-primary"
@@ -44,7 +44,7 @@
         :disabled="!finalizeEnabled" :class="{ 'hidden': currentRound !== campaign.rounds.length - 1 }">
         Finalize Campaign</button>
     </div>
-    <match-editor :match.sync="match" :coaches="campaign.coaches"></match-editor>
+    <match-editor :match="match" :coaches="campaign.coaches"></match-editor>
     <confirm-dialog :model="confirmModel"></confirm-dialog>
   </div>
 </template>
@@ -60,20 +60,20 @@ export default {
   data() {
     return {
       match: {},
+      currentRound: -1,
       confirmModel: {
         message: "",
         confirm: function() { }
       }
     }
   },
-  props: ['campaign', 'currentRound'],
+  mounted() {
+    this.currentRound = this.campaign.round;
+  },
+  props: ['campaign', 'finalize'],
   filters: {
     roundLabel: function(currentRound) {
       return "Round " + (currentRound + 1);
-    },
-    coachName: function(id) {
-      var coach = this.coachById(id);
-      return coach ? coach.name : "";
     },
     score: function(match) {
       return match.reportedAt
@@ -118,6 +118,10 @@ export default {
     nextRound: function() {
       this.currentRound++;
     },
+    coachName: function(id) {
+      var coach = this.coachById(id);
+      return coach ? coach.name : "";
+    },
     coachById: function(id) {
       return bl.first(this.campaign.coaches, function(coach) {
         return coach.id === id;
@@ -133,7 +137,7 @@ export default {
       $('#modalConfirm').modal('show');
     },
     finalizeRound: function() {
-      this.$dispatch('finalizeRound');
+      this.finalize();
       $("#modalConfirm").modal('hide');
     },
     confirmFinalize: function() {

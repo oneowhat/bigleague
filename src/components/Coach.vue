@@ -31,7 +31,7 @@
       <div class="col-sm-7">{{coach.favours}}</div>
     </div>
 
-    {{coach|json}}
+    {{coach}}
   </div>
 </template>
 

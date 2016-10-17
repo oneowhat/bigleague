@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h1>{{guild.name}}</div>
+      <h1>{{guild.name}}</h1>
     </div>
     <div class="row">
       <div class="col-sm-4">
@@ -34,7 +34,6 @@ import {store} from '../store.js';
 import Player from './Player.vue';
 
 export default {
-  route: { canReuse: false },
   components: { Player },
   data() {
     return {
@@ -46,7 +45,7 @@ export default {
       }
     }
   },
-  ready() {
+  mounted() {
     this.fetchGuild();
   },
   computed: {
