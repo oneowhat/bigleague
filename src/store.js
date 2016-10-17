@@ -1,7 +1,10 @@
 import config from '../config/config.js';
 
+// TODO: add campaign plot availability
+
 export var store = {
   api: config.api,
+  currentMessage: '',
   user: {
     id: '',
     name: '',

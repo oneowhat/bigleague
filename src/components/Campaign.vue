@@ -38,7 +38,7 @@
         <a href="javascript:;">Coaches</a>
       </li>
       <li @click="setTab('schedule')" v-show="initialized" :class="{ 'active': activeTab === 'schedule' }">
-        <a href="javascript:;">Schedule</a>
+        <a href="javascript:;">Matches</a>
       </li>
     </ul>
     <coaches v-show="activeTab === 'coaches'" :campaign="campaign"></coaches>
@@ -50,7 +50,6 @@
         :finalize="finalizeRound">
       </schedule-list>
     </div>
-
     <div v-show="!initialized" class="row">
       <div class="col-sm-12 text-center">
         <button @click="addSchedule()" type="button" class="btn btn-primary"
@@ -69,6 +68,7 @@
 <script>
 import {store} from '../store.js';
 import {bl} from '../store.js';
+import data from '../data.js';
 import CampaignEditor from './CampaignEditor.vue';
 import Coaches from './Coaches.vue';
 import ScheduleList from './ScheduleList.vue';
@@ -111,11 +111,15 @@ export default {
   },
   methods: {
     fetchCampaign: function() {
-      var campaignName = this.$route.params.campaign;
       var vm = this;
-      this.$http.get(store.api + '/api/campaign/' + campaignName)
-        .then((response) => {
-          this.campaign = response.json();
+      var title = this.$route.params.campaign;
+      data.campaign.byTitle(title,
+        (response) => {
+          vm.campaign = response.json();
+        },
+        (response) => {
+          store.currentMessage = "Campaign '" + title + "' cannot be found";
+          vm.$router.push('/404');
         });
     },
     edit: function() {
@@ -132,7 +136,7 @@ export default {
             vm.successMessage = "Campaign updated."
             vm.editing = false;
             $('#modalCampaign').modal('hide');
-            if(callback) callback();
+            if(callback && typeof callback === 'function') callback();
           }
         }, (response) => {
           vm.failMessage = store.defaultError;

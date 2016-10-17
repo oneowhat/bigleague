@@ -20,8 +20,8 @@
     </thead>
     <tbody>
       <tr is="coach-list-item" v-for="coach in campaign.coaches"
+        :campaign="campaign"
         :coach="coach"
-        :editing="false"
         :show-cancel="true"
         :save="updateCoach">
       </tr>
@@ -34,10 +34,9 @@
           </a>
         </td>
       </tr>
-      <tr is="coach-list-item"
-        v-show="showNew"
+      <tr is="coach-list-item" v-show="showNew"
+        :campaign="campaign"
         :coach="newCoach"
-        :editing="true"
         :show-cancel="false"
         :save="addCoach">
       </tr>

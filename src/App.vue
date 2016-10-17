@@ -19,9 +19,6 @@ export default {
   components: {
     MainNav,
     BlFooter
-  },
-  mounted() {
-    auth.start();
   }
 };
 </script>

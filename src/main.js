@@ -56,6 +56,10 @@ var router = new VueRouter({
       path: '/login',
       name: 'login',
       component: require('./components/Login.vue')
+    },
+    {
+      path: '/404',
+      component: require('./components/NotFound.vue')
     }
   ]
 });
@@ -67,6 +71,8 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+
+auth.start();
 
 new Vue({
   el: '#app',
