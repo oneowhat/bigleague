@@ -14,49 +14,62 @@ Vue.http.interceptors.push((request, next) => {
   next();
 });
 
-Vue.transition('expand', { });
-
-var router = new VueRouter();
-
-router.map({
-  '/': {
-    name: 'home',
-    component: require('./components/Hello.vue')
-  },
-  '/guilds/:guild': {
-    name: 'guild',
-    component: require('./components/Guild.vue')
-  },
-  '/campaigns': {
-    name: 'campaigns',
-    component: require('./components/Campaigns.vue'),
-    auth: true
-  },
-  '/campaigns/:campaign': {
-    name: 'campaign',
-    component: require('./components/Campaign.vue'),
-    auth: true
-  },
-  '/campaigns/:campaign/coaches/:coach': {
-    name: 'coach',
-    component: require('./components/Coach.vue')
-  },
-  '/login': {
-    name: 'login',
-    component: require('./components/Login.vue')
-  },
-  '/register': {
-    name: 'register',
-    component: require('./components/Register.vue')
-  }
+var router = new VueRouter({
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: require('./components/Hello.vue')
+    },
+    {
+      path: '/guilds/:guild',
+      name: 'guild',
+      component: require('./components/Guild.vue')
+    },
+    {
+      path: '/campaigns',
+      name: 'campaigns',
+      component: require('./components/Campaigns.vue'),
+      meta: {
+        auth: true
+      }
+    },
+    {
+      path: '/campaigns/:campaign',
+      name: 'campaign',
+      component: require('./components/Campaign.vue'),
+      meta: {
+        auth: true
+      }
+    },
+    {
+      path: '/campaigns/:campaign/coaches/:coach',
+      name: 'coach',
+      component: require('./components/Coach.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: require('./components/Register.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: require('./components/Login.vue')
+    }
+  ]
 });
 
-router.beforeEach(function(transition) {
-  if(transition.to.auth && !store.user.authenticated) {
-    transition.redirect('/login');
+router.beforeEach((to, from, next) => {
+  if(to.meta.auth && !store.user.authenticated) {
+    next({ path: '/login' });
   } else {
-    transition.next();
+    next();
   }
 });
 
-router.start(App, 'body');
+new Vue({
+  el: '#app',
+  router: router,
+  render: h => h(App)
+});
