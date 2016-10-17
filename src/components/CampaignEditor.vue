@@ -39,12 +39,7 @@
 <script>
 
 export default {
-  props: ['campaign', 'cancelEdit', 'failMessage'],
-  methods: {
-    save: function() {
-      this.$dispatch('saveCampaign');
-    }
-  }
+  props: ['campaign', 'save', 'cancelEdit', 'failMessage']
 };
 
 </script>

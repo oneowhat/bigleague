@@ -161,9 +161,6 @@ export default {
     }
   },
   events: {
-    saveCampaign: function() {
-      this.save();
-    },
     finalizeRound: function(callback) {
       this.campaign.round++;
       this.save(callback);

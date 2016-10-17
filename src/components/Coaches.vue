@@ -14,7 +14,7 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Email</th>
+        <th>Guild</th>
         <th></th>
       </tr>
     </thead>
