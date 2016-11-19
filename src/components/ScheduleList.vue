@@ -28,9 +28,9 @@
           <td class="text-right">
             <button @click="editMatch(match)" class="btn btn-primary"
               :class="{ 'hidden': match.reportedAt }"
-              :disabled="match.reportedAt || !isCurrentRound">Record Match Results</button>
+              :disabled="match.reportedAt || !isCurrentRound">Add Match Results</button>
             <button @click="editMatch(match)" class="btn btn-default"
-              :class="{ 'hidden': !match.reportedAt }">Change Match Results</button>
+              :class="{ 'hidden': !match.reportedAt }">Match Results</button>
           </td>
         </tr>
       </tbody>

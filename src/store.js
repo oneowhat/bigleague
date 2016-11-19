@@ -41,7 +41,8 @@ export var store = {
         { name: 'Recipe for Success' },
         { name: 'Smoke and Mirrors' },
         { name: 'Blindingly Obvious' },
-        { name: 'Checking for Blood' }
+        { name: 'Checking for Blood' },
+        { name: 'Experimental Mix' }
       ]
     },
     {
@@ -71,7 +72,8 @@ export var store = {
         { name: 'Over the Line' },
         { name: 'All Fall Down' },
         { name: 'Feeling the Heat' },
-        { name: 'Remembering the Old Grumpy Cat' }
+        { name: 'Remembering the Old Grumpy Cat' },
+        { name: 'Barroom Brawl' }
       ]
     },
     {
@@ -101,7 +103,8 @@ export var store = {
         { name: 'Tough Meat' },
         { name: 'Bone Crushing Tackle' },
         { name: 'In Erskirii, the Hook Suffer You' },
-        { name: 'Ye Olde Pain Train' }
+        { name: 'Ye Olde Pain Train' },
+        { name: 'Bloodbath' }
       ]
     },
     {
@@ -131,7 +134,8 @@ export var store = {
         { name: 'Bolt Action' },
         { name: 'All ABout the Base' },
         { name: 'Tickets to the Gun Show' },
-        { name: 'Mokojin' }
+        { name: 'Mokojin' },
+        { name: 'Transmission' }
       ]
     },
     {
@@ -170,7 +174,8 @@ export var store = {
         { name: 'Chumming the Water' },
         { name: 'Showboating' },
         { name: 'Popular' },
-        { name: 'Slippery Fish' }
+        { name: 'Slippery Fish' },
+        { name: 'Captain on Deck!' }
       ]
     },
     {
@@ -197,7 +202,8 @@ export var store = {
         { name: 'Bear Foot Training' },
         { name: 'Rascally Rabbit' },
         { name: 'Traps, Traps Everywhere' },
-        { name: 'And His Name Is...' }
+        { name: 'And His Name Is...' },
+        { name: 'Signal Flare' }
       ]
     },
     {
@@ -227,7 +233,8 @@ export var store = {
         { name: 'Hunker Down' },
         { name: 'Rock of Ages' },
         { name: 'Distant Friends' },
-        { name: 'Sister Act' }
+        { name: 'Sister Act' },
+        { name: 'Solid Foundations' }
       ]
     },
     {
@@ -257,7 +264,8 @@ export var store = {
         { name: 'Unsettled Debts' },
         { name: 'Deathly Pallor' },
         { name: 'Bella Tricks' },
-        { name: 'Room for Two' }
+        { name: 'Room for Two' },
+        { name: 'Delaying the Inevitable' }
       ]
     },
     {
@@ -291,7 +299,8 @@ export var store = {
         { name: 'Payday' },
         { name: 'Going Rogue' },
         { name: 'Decimated' },
-        { name: 'Route One' }
+        { name: 'Route One' },
+        { name: 'Bribery and Corruption' }
       ]
     }
   ],

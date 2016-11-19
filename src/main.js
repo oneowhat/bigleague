@@ -45,7 +45,18 @@ var router = new VueRouter({
     {
       path: '/campaigns/:campaign/coaches/:coach',
       name: 'coach',
-      component: require('./components/Coach.vue')
+      component: require('./components/Coach.vue'),
+      meta: {
+        auth: true
+      }
+    },
+    {
+      path: '/campaigns/:campaign/matches/:match',
+      name: 'match',
+      component: require('./components/Match.vue'),
+      meta: {
+        auth: true
+      }
     },
     {
       path: '/register',
