@@ -2,7 +2,7 @@
   <div id="app">
     <main-nav></main-nav>
     <div class="container main">
-      <router-view></router-view>
+      <router-view :key="$route.path"></router-view>
     </div>
     <bl-footer></bl-footer>
   </div>

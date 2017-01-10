@@ -6,13 +6,13 @@
 	    </div>
 	    <div class="collapse navbar-collapse">
 	     	<ul class="nav navbar-nav">
-          <li class="dropdown">
+          <li class="dropdown" v-show="authenticated">
             <a href="javascript:;" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Guilds
             </a>
             <ul class="dropdown-menu">
               <li v-for="guild in guilds">
-                <router-link :to="{ name: 'guild', params: { guild: guild.name }}">{{guild.name}}</router-link>
+                <router-link :to="{ name: 'guild', params: { guild: guild.id }}">{{guild.name}}</router-link>
               </li>
             </ul>
           </li>
@@ -46,6 +46,7 @@
 <script>
 
 import {store} from '../store.js'
+import data from '../data.js'
 import auth from '../auth.js';
 
 export default {
@@ -53,12 +54,20 @@ export default {
   data() {
     return {
       user: store.user,
-      guilds: store.guilds,
+			guilds: [],
       tabs: [
-        { text: 'Campaign', auth: true, path: '/campaigns' },
+        { text: 'Campaign', auth: true, path: '/campaigns' }
       ],
     };
   },
+	mounted: function() {
+		var vm = this;
+		data.guilds.all((guilds) => {
+				vm.guilds = guilds;
+			}, (response) => {
+				console.log(response);
+			});
+	},
   computed: {
     authenticated: function() {
       return this.user.authenticated;

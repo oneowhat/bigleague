@@ -29,9 +29,7 @@ export default {
     return {
       editing: false,
       user: store.user,
-      guilds: store.guilds.filter(function (guild) {
-        return guild.active;
-      })
+      guilds: []
     }
   },
   mounted() {
