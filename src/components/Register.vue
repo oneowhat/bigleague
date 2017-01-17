@@ -19,7 +19,7 @@
       <div class="alert alert-success">
         Successfully registered! Sign in to begin using Big League...
       </div>
-      <router-link to="{ path: '/login' }" class="btn btn-lg btn-primary">Sign in</router-link>
+      <router-link to="/login" class="btn btn-lg btn-primary">Sign in</router-link>
     </div>
   </div>
 </template>
