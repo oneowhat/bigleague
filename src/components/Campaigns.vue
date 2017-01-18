@@ -1,22 +1,16 @@
 <template>
   <div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Your Campaigns</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="campaign in campaigns">
-          <td>
-            <router-link :to="{ name: 'campaign', params: { campaign: campaign.title }}">{{campaign.title}}</router-link>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div :class="{ 'hidden': campaigns.length > 0 }" class="alert alert-info hidden">
-      No campaigns yet, start one!
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Your Campaigns</h3>
+      </div>
+      <div class="panel-body">
+        <div :class="{ 'hidden': campaigns.length > 0 }" class="alert alert-info hidden">
+          No campaigns yet, start one!
+        </div>
+        <campaign-list-item v-for="campaign in campaigns"
+          :campaign="campaign"></campaign-list-item>
+      </div>
     </div>
     <button @click="newCampaign" class="btn btn-primary" type="button">Start a new campaign</button>
     <campaign-editor
@@ -31,9 +25,13 @@
 <script>
 import {store} from '../store.js';
 import CampaignEditor from './CampaignEditor.vue';
+import CampaignListItem from './CampaignListItem.vue';
 
 export default {
-  components: { CampaignEditor },
+  components: {
+    CampaignEditor,
+    CampaignListItem
+  },
   data() {
     return {
       failMessage: '',
